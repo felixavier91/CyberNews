@@ -1,0 +1,565 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>This Week in Cyber</title>
+        <style>
+            :root {
+                /* Refined color palette with more subtle yellows */
+                --primary-yellow: #F5B041;
+                --light-yellow: #FEF9E7;
+                --dark-yellow: #9C640C;
+                --accent-yellow: #FCF3CF;
+                --background: #FFFFFF;
+                --text-dark: #2C3E50;
+                --text-light: #666666;
+                --border-light: #E8E8E8;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 20px;
+                background: var(--background);
+                color: var(--text-dark);
+            }
+
+            .container {
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            }
+
+            .header {
+                margin-bottom: 30px;
+                padding: 25px 30px;
+                position: relative;
+                background: white;
+                border-bottom: 3px solid var(--primary-yellow);
+            }
+
+            .header::after {
+                content: '';
+                position: absolute;
+                bottom: -3px;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: linear-gradient(to right, var(--primary-yellow), var(--light-yellow));
+            }
+
+            .header h1 {
+                color: var(--text-dark);
+                margin: 0;
+                font-size: 2.5em;
+                font-weight: 700;
+                letter-spacing: -0.5px;
+            }
+
+            .event-list {
+                list-style: none;
+                padding: 0;
+            }
+
+            .event-item {
+                margin-bottom: 20px;
+                padding: 20px;
+                border-bottom: 1px solid var(--border-light);
+                transition: all 0.2s ease;
+                border-radius: 6px;
+            }
+
+            .event-item:hover {
+                background-color: var(--light-yellow);
+                transform: translateX(3px);
+            }
+
+            .event-title {
+                color: var(--text-dark);
+                text-decoration: none;
+                font-weight: 500;
+                display: block;
+                margin-bottom: 8px;
+                font-size: 1.1em;
+            }
+
+            .event-title:hover {
+                color: var(--primary-yellow);
+            }
+
+            .event-meta {
+                font-size: 0.9em;
+                color: var(--text-light);
+                margin-top: 8px;
+                padding-left: 12px;
+                border-left: 2px solid var(--primary-yellow);
+            }
+
+            .last-updated {
+                color: var(--text-light);
+                font-size: 0.9em;
+                margin-top: 15px;
+                padding: 8px 12px;
+                border-radius: 4px;
+                display: inline-block;
+                background: var(--light-yellow);
+                border: 1px solid var(--primary-yellow);
+            }
+
+            @media (max-width: 768px) {
+                body {
+                    padding: 10px;
+                }
+                .container {
+                    padding: 15px;
+                }
+                .header {
+                    padding: 20px;
+                }
+                .header h1 {
+                    font-size: 2em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>This Week in Cyber</h1>
+                <p class="last-updated">Last updated: 2024-12-31 14:21 </p>
+            </div>
+            <ul class="event-list">
+                
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxPYWw2T09WRXlTSS14dTlsaURRSldQTndJeW91R1oyaFlaTFVXTlBBRElTZFBSRkVkMzNLM0Y2b0pZZTY2b1JfaG56Wkd0MEZJRmdrY1lBMGJYY005OTltdDBNamtvdDJMNTFKeTlfeHJIR3BhOVdFalJJdGM0SWZrcXEya0U?oc=5" class="event-title" target="_blank">
+                    China hits back at US cyber attack claims - Morning Star Online
+                </a>
+                <div class="event-meta">
+                    2024-12-31 13:46 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxOeTNXTXBfMk1WQ2FwbFVMclA5RG5RWlZNajc2T3RSbEdyU1A0bGd3ekNHS2lhR1g5RXpsYWpsZTV3U19xSGVfcUxVVXpFdnRROW5XOUQ0WTRmVFZzYWxDVDhGTEdMcF9sVC1yY3V5UWVCajhVYm9EY19ZWktFcUc4YmZBU21tYW5jc3dMWERyRjdZcngxU2dLMnFmSkxKa0RXOTFQTmhybVg?oc=5" class="event-title" target="_blank">
+                    Here's how to use the feature that protects your iPhone in case of a major cyber attack - PhoneArena
+                </a>
+                <div class="event-meta">
+                    2024-12-31 13:40 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMixwFBVV95cUxOWjN6SFlTdHNFcTdXRm14T1Zvd1lIRjdpVkttRmVSTFhoM194cS02dWM4cmpGZjZBTTA5b1pBUzdFNWZoaDlwczJ2Q29mRDRLQllJTW1FSGpBeVFUMWREQWt6WGRzU2RPaEE3VVc0bnA1UjFxLTFYRklmQV93LVNDTUY3MHF6MnFlYi0yRlJlQXpWbTFqVG1vNlBSeWxSS2I1X1E1Y2VVWkV3M0wzNHJhZGJiUVYxVkdSQXBHa3dBM3MtR0VjT0sw0gHUAUFVX3lxTFAyQ3Z5YWtfYzNPdUVHRG45bmxvTmY4NXQ5V29NVFhiZF94RnhtT2llTzlwNmtqSFlSN296YjRMeTRNSURDQ3AtdkFpSU5FVmxMa3ZieE5XZ25hMjY0MDZ2c280R3pLck9NRkQtM3BfaGRkZURlV0dXbHM0OEl2TU5ydjF0YnZMSUJaTjVEb1JMQVN4YlZET1RsaEEtcFFlMHU4NXVZTjdfMWlkd0htLU1qNGYwS1l2NmZFVEZ1ODBvSmh5UDlCaHp3VTdyYWNOb1hlYjdE?oc=5" class="event-title" target="_blank">
+                    Elderly woman loses Rs 1. 25 crore to cyber fraudsters in digital arrest case - The New Indian Express
+                </a>
+                <div class="event-meta">
+                    2024-12-31 13:33 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiggFBVV95cUxOWVNUcXlpb3ZnTFEyQU9zQ0lNd05ObnZDOU1BaXR0ZVV0LXlJenhRSnpOc1U4OWJCeUV0aXFzYWdCNFF3ZUxvd0Y3aU5HNkswR0FJT1UyRUc5WE9rcWUxYVBoY2FkQTU1Sy1JUzFMTVBrbi1WQjlqaW1XeHJ6MWxyVG1n?oc=5" class="event-title" target="_blank">
+                    US Treasury hit by Chinese hackers in covert, long-term cyber espionage - Interesting Engineering
+                </a>
+                <div class="event-meta">
+                    2024-12-31 13:13 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxNSUMwdkpJT3pHMFRJdFpwWmwxbmc1SFJQTEY4dEJyMjJjRkFGM1Nac1VCZ010VG8xYjRvYTFudXU4TWhHakh1NDExRGttQjZzNVAzbnBLT1N4V3BMd1EyMmZWYzN2dzJNYkFtYkxmN3kwMkpPNUhIQktjS0tndUgzbEJ4ZHVOSkc4SjEwVE13OXY5MFZucFRLMFpYS2RTODFodVBtYmhERQ?oc=5" class="event-title" target="_blank">
+                    Pro-Russian hackers target websites of several French cities - FRANCE 24 English
+                </a>
+                <div class="event-meta">
+                    2024-12-31 12:30 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxPaFBmdlh2QWtNbk5EVENoYlpDRDk0YmFWUjhRbmNWbUMyOXc3T1lNQnBpcDVwZ2FFalZoQ3ZWRlNwTEFRN21OV3BaMF9qOE9JMzZHWTlxYWFhVjA0ZG1SWWhJRVdRRTJqdThQNWo1NGRRbkp1dTRJZWlfZzFkRTJoYnBlTWsydjZLdUpWWk4zTFJxVlF6MzlBMHNYaFF3RnV5d09GazR0ONIBrAFBVV95cUxPS0pKSm9YaUdVNlNZeGNGM0VjaWpVdDRQVURQcXVvdG5ibExmWWZLVDh2MzZwR2kzWjVBQld1ZFJQUHhwMzItUGR2bHllY000VW9JcnZuekhIcHZ3X0pja1BucFBrNEhGeG1Hb1p2TWlQN0pUZFFab2ZNYm9wRFFWUmhGTFNCaWo3U3VqaHpRQWQ0WlNEcGxPTGIwbTN2emFxX3NuanNTNlNmQmJp?oc=5" class="event-title" target="_blank">
+                    Noida man duped of ₹40L by cyber frauds - Hindustan Times
+                </a>
+                <div class="event-meta">
+                    2024-12-31 12:27 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMib0FVX3lxTE8xXy1BX3FfS3dzanl2bHo0RjVuT3o1blRmOWRPTEFRMUJ3eVViV0VSQjdlbGJKQWhfVTFyeGc0OElJXy14V3JCaHB4OGNZbHdLSG1meVEzd05VejdvQmNSUk9WMktNOHdqaHVMM1A1NA?oc=5" class="event-title" target="_blank">
+                    Thomas Cook Hit by Cyber Attack, IT Systems Impacted - CybersecurityNews
+                </a>
+                <div class="event-meta">
+                    2024-12-31 11:59 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxPMWZ0cmlhNXRGSXNBZWpqSzZ1TjFPVEhFZTY4Ymp1V3NCa1h2dlpHOHI5ME0wMUtiMGJpQ0JxODY0UkY0ZjdOMi1YUGROT0dQeGJ5eEFJRFNxR0lXNzczOVBkb3pGdzRjOFBKRnAtTU1UeXk1RF84OUZKN0xLWC0yc0pBZnp4OTRKU1BXNlAwU2kzUWFHUlV0c2NuSnZRejFweldmWW9BNmVYUUtUTmp0TXhIUE85WlU?oc=5" class="event-title" target="_blank">
+                    'You are under digital arrest': The cyber scam that shook India in 2024 - WION
+                </a>
+                <div class="event-meta">
+                    2024-12-31 11:56 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTE9ocmRWUlJkQkdDdmQtMzFMU3BWMkxobXNMQUcwYUp5cDJaZjdzR2Y4NnplSG5velFYT2hxRVlYcDNic3ZxdGlWYk9FdWNPZmlGUXg0TA?oc=5" class="event-title" target="_blank">
+                    Azerbaijan's Interior Ministry warns against cyber fraud [VIDEO] - AzerNews.Az
+                </a>
+                <div class="event-meta">
+                    2024-12-31 11:23 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMi3gFBVV95cUxQbXk4eGRncmdJSHBjWjVRaG1HajZ2S0xxT2tCWlBIRU1ESVl3dENIbndFaXFYeWRMZGhPbmpoOEVWMEtoeVBWVzFoc2RlOXFMaUxJZWNrc09KbGdYbDA0MWpWWERDdVc3azdlYUxQVER5V1V2a3hCY2YzSFZFVTlIVUVQbGVnOFZGZkVvVnhDZWxTbWxTcDgzbmZFWlBZbEc4Q0d3OVNpTFRORWE3MVdmdjFxeWF3ZkxBaTJPVVRyYjhORU92QUd5VUE4OG5HQTZhX1AtTjFuazdHQWRzN2c?oc=5" class="event-title" target="_blank">
+                    Doughnut Chain Krispy Kreme Suffers a Play Ransomware Cyber Attack Disrupting Online Ordering Systems - CPO Magazine
+                </a>
+                <div class="event-meta">
+                    2024-12-31 11:00 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxOOU4wa0xUeDl5cmtWS3lGbDNsamxQdjBsX0dKa1BvQXExbnZQWkozdUw0ODVTd3ZudkNQTXVzY21CbkVYM2RyVXROTTZRT09IQ3o0Z1VGUGlDX19jb2hwX3BocnV2S1ROQnd3ZXhsSHBkbVZkaEtYa1BPdEFxc2FENkFfUjhIYnBiQjRqNzd3Q2R2WWQ2alpkNXIzcURIa0Fi?oc=5" class="event-title" target="_blank">
+                    TryHackMe — Advent of Cyber 2024 — Day 5— Walkthrough - Medium
+                </a>
+                <div class="event-meta">
+                    2024-12-31 09:30 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMi2gFBVV95cUxPTkxibGotZ2x5SmhmMWFkLS1SNFBUVkVDNng1aVU3Q1I2U2JHemNYNFVZVXlGRks1Wnd2SXRMTDJ3QkktQVdxMW5tZ2N3b0JLbFBjMWdERHRtX0NBSDlnaEEyUzRjV09mYk1BY0xCYmJJemFSQmg5RU9UamZ0aGV4QjloRWF2cTh0WDZ4TXF5Vm55SEFpSHJIU2oyMUpvOFZDVnlUdC1vRlRoaHBNWmV4VFVaczI1OW9EZVRLRFpxSkJrVEJPWHhDLVhzOVJBMnQ3R1VvTDhyNUE4d9IB4AFBVV95cUxNRmhubkpUQndWY1l3SUJtU3hjVDBHeXNJYmtUNms4eW9NWXktVjlNTlZrLWlSNlNBOTd2MThQd0xoU25kT1pQU3cwRUMtNnBqX1VrOXYxUXBkWm4zZ1B4b0NlTzBwOGFMaU9UNzJNZ1JSTklHQS1rN05DTWFpSVFCdHRCZHNoSUpBR2FaYWg3N0ZlQU11RWk2eW9HQS1kR25iY1lmVjJrT19QWHRZZ0ZxeTJnTFltTWJOY1JzSlNxdVFYX041UDlHQ3FtY3BSR0MxdnVzN0FfQ2tHWEFuVzh1SQ?oc=5" class="event-title" target="_blank">
+                    Thomas Cook India faces cyber attack, impact on business minimal, say sources - BusinessLine
+                </a>
+                <div class="event-meta">
+                    2024-12-31 08:39 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxPSFZTazhqNURkVE94Uk13LWJ3VUJXbGJVQkt2cm1HN2M4WnFKQzc0a21JdkNKREFTMnRPbWtyakhxNTc4SFJjOVVGcTdNSzJBYzJQWVphWnJKbWdwdDF5Y2FfZExtY0JiSXBESEU1aW9XMW0tMDU4Y25wWkh0V0UzT053RWpTN3VMV1VJSzhtUmdFekRfUGNvdUpaVdIBoAFBVV95cUxOZi04RzE3VllCc0JobU9CR1kyV2txRHhHZFZuZHFUZ293RVJSb25MUE5Penc4dlZUck0yRi1fdTM4WUtVR2ZfNlJwRkxhd1ZBLUo4TU5Wc0RXdldlRXNXem9ZTFFMZjNmN01FeUpfUW5TQW5pV19wOFZpaTlHckRydlFMVV83clBVX3kxbE9HLU5zZjIxTUYxSjIyU0R5NGhW?oc=5" class="event-title" target="_blank">
+                    ‘Cyber event’ disrupts Winston-Salem city network - CBS17.com
+                </a>
+                <div class="event-meta">
+                    2024-12-31 08:14 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxQdDZXUnJ3aUJSd2VWTHVKazVONlpaMVhhcGdfQ1Y2R1lQb3FmaHViM1NHa1ZOLTN3LUQ0TG5RLU4yODJUWFE2ZVVpNW9kU2dsSjRteUhORGRlVksxNUdOX0dqSnJ6RVlMWW5zRGNtNnluQnJfeGNMLUh3WTZhZUxOTl9PZWNMYkQxaG5BcVBHQXJoOVBHRVJGQW16OE5rWTdUb0pxUENjMDZUUU5ZcFpSdNIBtgFBVV95cUxQMHRCZnEzQWN3aHJBVDBRUjRrMnB5ZWE1Q0FqYVBIZ0JxQUlaR3lDZzY1SW9aZ3RnbGQwaXNmdU9zSDhoaWdwNUdlNFZmeFJHZmRlYVZreTIwc0k2THg1NVBsOVQxc2oxRktLUlhKYkNZWWRyN012R2U1ckRHZEJwMS1sSWpnTWo3a2JiczdBdmcyMi1vbmxTSnlVQ1dqT2VfYUhXRXpkLUxnR3FyYVBUczVaV0FSUQ?oc=5" class="event-title" target="_blank">
+                    Global Tensions Spike: Arrests, Attacks, and Cyber Breaches - Devdiscourse
+                </a>
+                <div class="event-meta">
+                    2024-12-31 07:56 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxONEJYelhfS1JGRTBTQTZ0NzdQNE5xN040LVlDVWhINy1WRjR2dTZiLVBnYWhvMDY1NTFrVWJpdkVVdkN2bWFnODBkQVlGTDE5VWpQcm95TEJJWjNObTU1TnZacVBoQkhZUnh0QVJDX0FtMHhpQUFGNTlhMFFfZlQ4bHNtTlNsWUxFZi1rUFhmNEdDa2NZSnQybXJSOXhCOEhnX09FcjZ1bkNmcW5ELUNkVE1NS2FZcTgwSWfSAb8BQVVfeXFMTnFrQlR5WVVheXJZVng5dFhwZHJQcVBtMXBrVW5GMllHWlktVjJ5LVBzN3ZBQzBWZF9WbWdzaHZjcVIyUmFjQk9UakZlVEdPTm1lSFJsUVhwbDlUTFVuUC0xU2VZaUE3R3NhVmNGa0lVSGRLOGp1SzlnSE9MVGFScERMUF9FbjZlR05FRXlTYlMxVGJGZHlKUFN1dWZfa0hwd0JuNmhoUGVqcTdteGFMbnk4R3Q1OE5ObDFyVEVCcmM?oc=5" class="event-title" target="_blank">
+                    New Year Cyber Fraud: How to Avoid Being Scammed by Fake Apps and Messages - Lokmat Times
+                </a>
+                <div class="event-meta">
+                    2024-12-31 07:33 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxNekZ5YThsU1RvQVVHd3JQaWJjVVF3QVVnd0kzTDVCMVZBaTFPdmxYYmZZckFDWmpkWVdWTFlUNW5fVmV3WlZReVA0aG93YlFmeHdSVkZuT1IwbUFfMDE2SVNqaEw1YzhfRVpJWXc1NnRHb3FTckFRY2RhbWlyR0pOZjVGamJUd9IBiwFBVV95cUxPd2JWYU1qV19rWEx5UElTN0hVR0pINWx0Y1B3TTV5Y0ptQ19VZ3VXUHBlMGJXb20xcnVMWVJpaVE5ZTZ3ZEpuazFsV2pUMXRPblJhZmxvbjd1cV95czZPRmFpeVBiak5yS3pRLVV2WlVOUklsblVjZ1o3M2RNd1FKLU90V1dKYWMxekpr?oc=5" class="event-title" target="_blank">
+                    Thomas Cook Shuts Website After Cyber Attack - NDTV Profit
+                </a>
+                <div class="event-meta">
+                    2024-12-31 07:14 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMi0gFBVV95cUxQbUludzFPbWR4QkdnVkp6Vm5rR3JnZlQ4bE9RWTJlWkhieUFYdmpGcENjeXJ1V1ZVWXMtQnd1bXlmZ2pNZ1JwTXN1OVVBRDZpM2RESjRJZmdtdUd0R1FkVTFueDFXOVRtc1MwZV9sYm5qQ293MnRJZThqbGhuTkh3VDNteHA5RE1BYkhVVFBpWHVEUzdleFJLTnBuMGUxTm5FYldMVV9zOGZGYnRGUFRWZ042aFRmbGlBRlptblg0S28zdUsyU0M2dXZhaHdaRlZnZHfSAdcBQVVfeXFMTmZIUlBMMWtYUThxTlBfazBTSWllVmhmcEdCWFp1WnNPNG42TFpCcmdFVFdybVNwQUZ4ZGFQRXpjNGlpbDgxNG5DbnBSMHZtUi1wR0FIeG5wMjVNVlY0Wk5oSTBqQVBKZzd4VThDZExpVVExeTBtUEJheDh6Tko3bWpaWGpFVDRaOXA2ZzlnaWdXcnl1T1dGczNGZVVRd1JfQTE3UjFSTVRRT0dqU1lyNkVxTXhPMG1UUnhPM1NmRWZpb2tPQmswNzFTQjBkenJkSjE5UzhuVDA?oc=5" class="event-title" target="_blank">
+                    US Treasury accuses China of cyber attack; 'groundless' says Beijing - The Times of India
+                </a>
+                <div class="event-meta">
+                    2024-12-31 07:12 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMitgFBVV95cUxQVkc3MGZFcFlLWWUwQXQyYTA0Q3ZRZU5Zb3lDYkE0LVpZVWJfWnkteVVmYldNajNUU2R3c1E2SThadHFjQUtYeEhJX0hqcjZlZDZhZXB1ZDM5UndBM2VvTU9Rd2ZWUHRNT2ZhU1kyU0VydXRSczRCQll3NzE1U21ZMGp4eHREX2NrVkhTa3RuVEV0Sm9SVmUyb19vbkZwWHdaWDF0cnMwdW5kMko4WEhmaVo1c1hCdw?oc=5" class="event-title" target="_blank">
+                    Krispy Kreme offers free delivery for New Year's 2025 after cyber attack: How to avail the deal? - Soap Central
+                </a>
+                <div class="event-meta">
+                    2024-12-31 07:02 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxNc0s3T0pYa2YzNldEVUpWWEpEblRmN1hVbGpYLWwzY1BsQVlYanA2dWdveC0tcGl3N2xsYklNeDhPa0lpZTZvVzZaQVdrQnhTUFdxOE9QNkJoaF9CcU93MDlINGtHR0ZuT0h6QUl0UGZIcWVMdGVKRTBNand3RVgtaUtJUUV1ZEJHdHFOZDkxX1hNekFaRnRF0gGcAUFVX3lxTFAtak5FdFdHN1lSV0V6T0JBNVZpUHhkQmk3S25EQXRVNkZ5TGVxdThDUlhyU1l0a2JEWUtOajU4SG1PclZ0bUZBaGRrU2QxMUk0UUhYT3BiSmhHa205NEVTc1NtRlBYYkZqRVhoU3lONUlMNDg0eHFjNFZWekRTY0tHb2RJVGpZTmltaGx6WEh5OFluaWZqcjFmWmVLNA?oc=5" class="event-title" target="_blank">
+                    Chinese Hackers Breach U.S Treasury Department In Major Cyber Attack - The Whistler Newspaper
+                </a>
+                <div class="event-meta">
+                    2024-12-31 06:55 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxPMG1QSmtvRXdpcmJocnlWdWN3aVktM1hVV2VIUkV3aUF0S2RsNi15MV9fRXBFU0NTVlMwbFh5VXJQVXFUZl9Kcll3Z3Z3MG1XbHIzTWVfa2l1ZUVHemlQQTRGQUJHdjc2RXBsMjVxb3pxMGJub0dkbzU2VERkNG9tQ2FEd1VYeDVFOC1VZWRZbW1GUnVBSnRhczdOZHJFcUFoY3BLRERCODVtZjky0gGyAUFVX3lxTE1WMlVSX2JoNzJPa1hva3FQY1VtZy1VNDRDM0ROS0txdGd4YnFSVkg1cDBNRmJ3VDRRaTliMzFzZXBzdEhYQTlWeldNV3BRdGlDTGdGZDRtbGt5WEk1M2FVekNDMUp0S2llYm10YWVCSUg4eXdGZmNpVnR3Q1VDeEFydTMxR0kybzZXZnI5SVdpMnBTYkZNWFRfSS1kTFl4Nk1tS2E4UnZiNVhJR2FIS09vTmc?oc=5" class="event-title" target="_blank">
+                    Hackers can operate your car remotely, says cyber expert - Deccan Chronicle
+                </a>
+                <div class="event-meta">
+                    2024-12-31 06:47 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxOTms4ZTNsRW4xTTlpdkVuNFdyNTJuYXQtMHp4dElvZ2h6RnRSckUxZ2pwSGtmT01mTGU0NXVTenlXV3JzdnVzWnhNNU5TUGhENnRDU0JMTFJtVUJrNnMzQ183Q09KSlVUa3BqcGdheGQ3SkdQN2hsTGFPWnlMdlFGUldYZ0ZBYmcxN2h5SjBBNUw5QWZtMGRHMHNwdHJWdjV4dnZaSmtLQ3FqRTZWd1dkOUxGWDg2NXJqc25Ib3AyTUczN084WUxsX0VvQ2kwQdIB0wFBVV95cUxObnRiRVJnR1BkbEhYdWdCOERWSGpIUDZUNzBJbW91Qk0xX21BQUVlcWtNVFlxNUFQUnR2WTdLX3dENzlnY3FQdm91bGkxYW9zVWZ5UHY5MFZpWW9VMURyU093YkM2YVFfaUpDT21vWlkxMFc0eVQ1QXJjdVVrQnpBNGZpUS1TQ3N1UTNFTzFVZnFoOFU2cFdUOXBidjUyVmZ0Y0dWdmZ6THRnRWdrQjNQZW1lLUhMY2xBeHR0M1l1cGdxZmtUX1VsSjE3bUgwNHdnNmdR?oc=5" class="event-title" target="_blank">
+                    Cyber attack on IT infrastructure of Thomas Cook (India) - The Economic Times
+                </a>
+                <div class="event-meta">
+                    2024-12-31 06:34 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMirwFBVV95cUxNLWQyV0lxYS1kbzE2Mk5GUkVIbTVIUXdfM01lLWxnYlhUOVREaS03UmdKSXJFOFpwYTRTMl8xUDBIUWpGaDdOU2Z3b29aR1lsRFlMd1AyNzZzVlNwemFLRW1NSVhwVWFFcnpFaEVCYnNJa3E4RHBmV0YyNUVKOW1wSm9aTXZra3EwdFhhVFlGa3hYdFB3UWp6RS1CTk9TRFl1V25NV3gzaVNsSkphSFFN0gG0AUFVX3lxTE1PSThjZm1ZdTBqWDUybHNNTDdRS25WSFFEZ1BheHNQSEVpT0hIcTFoS0tkaWdteHZEUXJ0SlNKZTJJaVZFMk1sb1cxNEQ2ZXpOdWhaR2FoUGQ0c25ucjVtQ1JUVTF4eGE2eE1rM2VBek1VbXh5U3V5dUFDNVFZUzVBakRDSDIzckVKQ2xxWHJFZlZrbkZ0Q2w2Sm5Pa0dyRWVxSUJfbmxweHFsa2R6YnUwZDN4LQ?oc=5" class="event-title" target="_blank">
+                    Cyber Attack Hits Thomas Cook India's IT Infrastructure - Devdiscourse
+                </a>
+                <div class="event-meta">
+                    2024-12-31 06:15 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMitgFBVV95cUxPbEQzaHA0V2xSRWFxbzJuMUJXM3pWYkxUUVllOFdicGEtMUtxckZkR1cwWUYza212b3NnVVRWUWFMa3pxRkd3dkxtR192NHNQWXI0MXZaa19wY3JGbklrMWFuWGV4MnJISnpuMGFuLUlPVUtlakt3WXVTWG1wOGlVNkgtTmNMMm12bnVBQ3k2S19tcGVYY0pNVlFhZXRqNjdhYS1fbFg4YWYxRnJQczB6d2ZBeXN1QdIBvAFBVV95cUxOWnJLOWpTb1NVYWRQQk5Ja3R5WGlMYVd4ZWs2SFB6SGlSUl9mSXU5TDJWaGYzNGRlWDdiNlZYc3BzVjZFN1NVZC1Sbjh5cXFFZWVVcDlhazdJZ0daVXZSZHJBUkFTS2ZpMkF2VDFnbjNrSUp6cTAzamtRNDRJdllMWVBiYWxXOGhXaVBveEZ5cXc0SmRxU0N1UUJlMVViUFJReFZUUlA5TnA3aTVpY3daWlNybWE2eU4yQmt3eg?oc=5" class="event-title" target="_blank">
+                    Now, cyber scamsters target PM-KUSUM applicants - The Hindu
+                </a>
+                <div class="event-meta">
+                    2024-12-31 05:39 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxPLVZxbjZHdEl0cmFRNHkxelJMWGJUOWNkVl9OZExoNFFlQnp4WS01d3A4d0h2RkFBLUctbGpNVVF5ZUphYnJSbV9WNUpGakFZeEdEY0oxck53Z1l0RzE0alY3TUUwVER5bENYYVpvUnM3Q1hZd2luajZDbWd3SjVNckMxdDBjWC1jRDYxVXJHX2FvQ0txQ09scHJxMnByVUVWOUduc1FLUVLSAagBQVVfeXFMT21GS0cxRlR1NExOZ1ZYYVhuVXE1cUVSX3V0aWlFTGg0ZHVqb3BiazBEOVk4OHRtMU4ybXQtM190TkJTXzU3ZmFBdDZqaElkSFJuVXlGX1RHV2d6ZjhhZ1NUQi1tM0g2ZUVJU3ZLN2Rrb3hNVVVXbV9CNWxrQkVGVEtNYW0zYWtWbFVDeGRVMTBDYmJ0eElJWFRSNkFDUWsxeUJRbmgySllE?oc=5" class="event-title" target="_blank">
+                    Beijing denies involvement in US treasury cyber-attack - The Guardian
+                </a>
+                <div class="event-meta">
+                    2024-12-31 05:37 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxNZ09VaHRBR1hOa1VYTVMwSXVEaWRqMWNsVElJZWxmVFRtanFtTTJxOVh0ZTN2MDJPTkJsTEVtOWt3SGUyMDlBQnRpSUlsQl8zWWhDQmpDYW9DeFUtYVQ1UmZOVm8zX1ZLNmNpM1NGa3N3S2VLM0IwaERJNHZPckZpZ1lPUW96UWJXZW1SVDZPZnZKMGx5OVEwWXdzNW5CbHREajB3VmJHZDdrc1llcmhLeVdKSXVoS0lQcm1GalpmYi03VHfSAcgBQVVfeXFMTzhHMDAwbFk5WGJVZXV2MV9LdlZXcElQRjhlU1d0UlZCRDljekRzVWMwUGEyd1h5Zm1RbHJBbktpX05CNnUxN2J2TDhySmFwdmsxb3JLX0RxaGhlUlRWMHFfT19HNE1teFF6bU9RWmN6MzQ2cGM2SzRoMXZjT3FUQWw0UDh1UnNBR3p6NGNnTjJIV3VKZWtYOFJqV2dPVllNalJHSVd2UlBHbVVhLWp5UTNPQVFtMVZiNVVEc2VnY0pLSjZaYnZ1SkE?oc=5" class="event-title" target="_blank">
+                    Thomas Cook hit by cyberattack, temporarily shuts down affected IT systems - Business Standard
+                </a>
+                <div class="event-meta">
+                    2024-12-31 05:35 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxPTXhISjAyLVBHUmJCc0hxckxQSmo4a3VHTTRaUjQtaHNKSDFQXzBjSzFodGdHaURmT2NaaE9vb253VXY2Q2NuWmVOSlJzYVU1RHl6MmFlenRaaUEtRm5ubE9fSnlMNVpHZGRkd2tHR1ZtVVBHUFZOQ19YZHlWR2xLRHNnLUozUFdLMGJta2JUMkczdm9SVktqUW4yUGdjTFlzTENoU3lXbHc1X1Y4Z1lPazJ0c0NFdWtmOERMaXVpaG1pUUJKODJRT1lBaDd6UdIB0wFBVV95cUxPSmgzMHVKTFBJM3NHLXlFSnNBLW1OWjFkWW9ON01WaGlvQm9rYlpCYmJIbVY0c0VTcGxrbTVPWkhkZWYtRmtVOGhfN0M5NXpjRUc3NVZOMHB6STFwOXVTdFRuQ0JNWTV6bzZ5OTg5T2pTVTJZbmxTaXpiVHJLQlF1NkYtNndtN3NKb2VfRmx5TjF4N2FpaHZhc3BDLWlUaG5uQkZNV2RQRkRzUU5ZRjctTmNRUEZ0Z25jeGp5aHI4NG1YcFE1bGNIQkF0eHNRcHc0Rk9n?oc=5" class="event-title" target="_blank">
+                    Thomas Cook shuts systems after cyber attack takes down IT infrastructure; probe underway | Company Business News - Mint
+                </a>
+                <div class="event-meta">
+                    2024-12-31 05:22 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxNakhRT1hGU3pya05WUm4yZEJIbVQ4RjhNWnJ6NkJKMWdyc0ZHUWVOcGN4dlVUbkdHZ2V5amk4UFViV0w5eXhEN2EtQ05WczZheGNXZndzT3pBWTRyVWpmNGlveTU4bFdnZ0stclV5ZFVvc1FvNWlPdUJjLTJaZTVzWUFEQUtOektfcnlNa0dvSnpwOWZoY3F5OS1wZjBjd080RFQ2TXk2akhVZHd6QW1qSk0zTHBFekZn?oc=5" class="event-title" target="_blank">
+                    U.S. Treasury Department hit in cyber breach by China-sponsored actor, officials say - ABC15 Arizona in Phoenix
+                </a>
+                <div class="event-meta">
+                    2024-12-31 04:03 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiigFBVV95cUxNVzN4ZmVieVRBbUsybXkzbllid2RGU0M2VFdMWi10cEs1QmxSYTN2SW1xbU4zUVJjT3RRRE9iaWNicVR1MmtXaEFsSnA1M05jTUFaZTc2TG1mRFBoODZhbmlxTGdabU9sd3FHRWIxaDlEMzFBNVJqaks2SUR0RHpweXM3ZFRwZXQxcXc?oc=5" class="event-title" target="_blank">
+                    Treasury says Chinese hackers remotely accessed documents in 'major' cyber incident - NPR
+                </a>
+                <div class="event-meta">
+                    2024-12-31 01:00 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTFBERWJiOG51VzZrOTFoOVVqRW42Z2tISEpOT3FwV3FwQV8zeTRJVkN0NFJwS2hsaWVnYTVPc2ktOWhvalhSTlFwUTFaVzlZSFR3TENHeDZROF9nbzQzMmFHSGp6eHnSAWpBVV95cUxQSGxFZ29nc2FxSlJ4N1lLLUt6bzYzeXdSc0Y0SndIMnJHZUZ0MGEwMjZlU3NQVnpQM3VCNU83a1ZvNWREVGRTVml0YkdwS2VLUjJXWE1EQ1JZbDVlbVZDb0JXejkwN1dkT2dn?oc=5" class="event-title" target="_blank">
+                    Cisco Data Breach – Authenticity of 4.45GB Data Leak Confirmed - CybersecurityNews
+                </a>
+                <div class="event-meta">
+                    2024-12-30 22:15 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMibEFVX3lxTE5FT3U2aGs1Y0hqUmpEM1JMTWhzeDZvNVBsZXFxOF9UOEFVMWpId2tCaXE4cWUxSDVKd3NWaUZ0ZnZRdG9PeFRoMHljMjhpMlRtZE93MzQ3WFpNNmVTZlZnRm9TQkdoZTBZSWZKLdIBckFVX3lxTE5saVYtUXF1bnBUc0dVWWNKcU5hY3NESWw1dWFsNXNvNzhFaF8yWlEwYVl5SmxnaWNuNnhKd2JVWndDX3hlY2RnclNscVJMc2lzdlNuTG9lazRiTEpGUWJxQ19VRzJyUHZsb3JqYnZDNndNUQ?oc=5" class="event-title" target="_blank">
+                    US Treasury Department Hacked – Attackers Gained Access to Workstations - CybersecurityNews
+                </a>
+                <div class="event-meta">
+                    2024-12-30 21:46 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMijgFBVV95cUxQNWx6a3VaZ1VKa2pPWmpzZUlIV2wwN1E1OVR4QjNBUS0tV0Q5VThQWTVOTlE4M0kwYzkwbUQ0cVotS0gxeXpPWE1kUXV0VThlbGFQODRtNG52NnNEakJLX3NyQ2c2Q0ZOVHlOZ0NrUzF2VEh6bXdZaW9OejhDMEZTeEJ2UmFTNFFLVkkwS1hn?oc=5" class="event-title" target="_blank">
+                    'Major system outage' reported in Winston-Salem, city officials say - WXII12 Winston-Salem
+                </a>
+                <div class="event-meta">
+                    2024-12-30 18:44 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxQOUhvV0lDbDJQeFl4TTUwODFvaEl0dG85SEg2aW9idkVYVGphcTYwdDM4eEhTZDFnMVFUTE9Idy02NVRjbWdOWHl4M18xUjBrX1dQWXhkelkwRThGWXNUUXN5NC1tMHhtX3Z0bkE1ODd0RmFTRzg2Tlc0SDdxQkNzR2h2Y2RVQdIBiwFBVV95cUxOLUVubFJaUXNDQjdaOFVkUUpKWl9DRWVZemNmZVJ4dlFvemhNVFMtZFR1ZWtuak54TGQ2MkVlc1RDWElkYVVGaXFzY3M2eGwtdnRYT0Mzd2VaRVJ5dlcycHNrTzE3bnVFWUhsdFJBNkpuaFJUcE43WGdybERkS2RkVVl5d25EUWxxVjdj?oc=5" class="event-title" target="_blank">
+                    More telcos confirm Salt Typhoon breaches as White House weighs in - The Register
+                </a>
+                <div class="event-meta">
+                    2024-12-30 18:30 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE83M2xqVlpvZFNyNnV5SDRvVTFVb1dPaW9XQkhsMFllUzRrYWdXNVRIZm0yOWdZYV9LX0Q1OUNXOUNMNHRjTDBmWEFJS2I0ZTRZT0ZwLVZDOTcwZ9IBX0FVX3lxTFAtZEswbjlSWm5EVTRnRDBRTUsxb0tEekRWckRhWmFUSDUtV1RCZnNqTGt3bHhET0pBUmZ5N3pnemVJN0dZd2IxTlljV25OVW9jM3l2RzJsX2R1VlMyU1FV?oc=5" class="event-title" target="_blank">
+                    US Treasury says it was hacked by China in 'major incident' - BBC.com
+                </a>
+                <div class="event-meta">
+                    2024-12-30 17:17 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE11OEZBMmN0NmhFSzNlb2c3Z3hwaVluSEZtcEZKRUZEZHAwVDhldTRRU2k5SmJISnJidWYwcUJXalBsbTVtM0RONEJoMEhtcEhMaUFpem9IcUlBS3dzcmZaZE1qM0tzbWVqMnZmMkxtT21FZjA5aUJ2S3ZvLXF0TFnSAX9BVV95cUxOQkFEaWNaUFp4bzRpYmZJVWJNVXkyRzNVZURoQU9saG4tc3lsZ2FJS05nTm1iUzFTQUc2Nm5FeG1jWnljbHk1MzNkbkxCS0U1aFdwLVNMQ215a0VmV25rRVpKOEgyZVNOclZGNWNIN1k5MDNDclEyZDhmd3JtWDZn?oc=5" class="event-title" target="_blank">
+                    Chinese hackers breach US treasury network, gain access to some files - The Guardian US
+                </a>
+                <div class="event-meta">
+                    2024-12-30 16:00 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMia0FVX3lxTFBnX0JjNFZGUTZsRUF5UnZYcGpfc2t4Z1p6Q2pYek1ycWhmMWxHMUZOdjQxSVVjNjhIUHpBZHFSaU5pTjZXbG5STjZnU2MwQWszeTNrU1czdFhiNjdGcm4ydFBCa3VwMFZhekRV0gFwQVVfeXFMUE5jSmxsZFZ3c3dCR05lYnBPSXVlQXFMb3ZuNUgwbHhEa1JxQ2t4SS1Kd3QtZERsUkEtNWRjbVdWaEg2ZzZmRndPUDdBWVRRRGxSYW96OHJSSDBxMzBKUXh2Zk1jSXNxMmJLcWZpSVljdg?oc=5" class="event-title" target="_blank">
+                    Top 10 Cyber Attacks of 2024 - CybersecurityNews
+                </a>
+                <div class="event-meta">
+                    2024-12-30 00:52 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE41RV9icHZvVGRvR0x2dmpYb3c5WG5GR05TM2Y0WXZKeDZSRDVyZTQ3U3NqaFpUUmZCc3V5VzlaVVV5S3hSbUpiQm9iSkprMEVVdGl2NmJtbi1JVU9oYXV2eVduN2dGU0VWcF9hMkZTZmE?oc=5" class="event-title" target="_blank">
+                    Should banks foot the bill for cyber scams? - Financial Times
+                </a>
+                <div class="event-meta">
+                    2024-12-30 00:00 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMid0FVX3lxTE1NY1NmT1VHMXVsWUNGaW9KYy1BYWl5WHRNZEtJZzJfMmw5dEJqcTNzYzZHWmFEVFU3SVZIU3pkWUtJT0dvVEU4TTdVNHFTNGRrcWsySmtZQjlBSlppV0NETHppVi1wRHoxdnBDOVJQcXktS29yVkdN0gF8QVVfeXFMTjJSUEVMLWZwV1NUTm1xaGlwbXhsRUMyWG41TDM5eVRoTkR4OGFySU5aQWQ2VnM3ZVd2YUJ6a283djVucUZBZmh0SWpUeWRuX2FBTzUwVEJGa2xTNmt1MDBHWXJhNWk3ZW0teXJSUkNmSm03QlZOR1J6Z1Q0SA?oc=5" class="event-title" target="_blank">
+                    Hackers Hijacked 16 Chrome Extensions to Inject Malicious Code - CybersecurityNews
+                </a>
+                <div class="event-meta">
+                    2024-12-29 22:06 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxOOU9ydmR1bk9vcnJtTVZDLXVkVGh3a1UxdW42bTNPY2ttMV94MktIa1F2UEJkSzBZdF9Tc0p6QkV6UUpJV3pvbjlpa3daX1BmX2hzUGg3TXJQRXlSM0hqQnY4RHUxakNBZEg3YUV5c1dWQnFPbVAtRFRBSXJ5RnVlcUZYeGJUNG9Lcm5tV0liSnYxYTMyaTNF0gGcAUFVX3lxTE5MNGlGa1d1TTFhbUgwd01feFNOQjdJQ0JqYXd1alhGUUFBRUdfOTVPWnpBeUxZWmpNX0hFWWN4aWF3ekVRMWVxMldLZ2F5ZVFoLVIyUUpfcW1HeUl4dVp1MHkyR0JQYkpGNDRhTjhVcWxSbUMwWW1fb2I2a3Yxd3JnVFNVU2FvY2V1amhRdjlmRVFwb1pqTjZTTGJHVg?oc=5" class="event-title" target="_blank">
+                    China-Linked Salt Typhoon Hackers Launched Cyber Attack on AT&T and Verizon - CybersecurityNews
+                </a>
+                <div class="event-meta">
+                    2024-12-29 12:31 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMi0gFBVV95cUxPdFN2LTY1X1hBQkRQSDRuQURLYjVLS3dSdVV2T2lmb21SVWNueTAtRmdNckxfdm1uSS1Wc1hWQmhKQ1JkTWMyRW5iVjdIVV9nQmVCSkNjUlIxV1ZkaE9ZNmQzM3JhQlVIaDBnU0duY3VYcnplTW1IckhvNndlOEVmeGZmLUxKOVFuWTdFaFUtajZwQ3d4OGpfSWh3RjB2dmY3NHFrSzJtdHEzRXBZWkRQWFRLVFNUNkhFdW1uckhfZ0dCaUdCRGh5TXFHdXIyaHhxa3c?oc=5" class="event-title" target="_blank">
+                    Cyber attack on Italy's Foreign Ministry, airports claimed by pro-Russian hacker group - Reuters
+                </a>
+                <div class="event-meta">
+                    2024-12-28 06:44 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNMFJIWGZyazV1RjcyQWdWRXlRMEF5N0NKbnFTczY2dEtxaFloTXIwUTFfMXVSUGp3enZBYTZHWTg0TXRZY1dlWWN0a0pNdUxYT25IVjRMdVBYcGFiYVVhNEJRTU11dm5rMWR0VWRRdTFPSHVPcmIyNm5LMXBRbm1YNVdIVEdhTGhiNWVfdk1wTlRqRl9tWDhYOXp1MkMwNnVadE5BaXpMQUo3eWdVbXViWDFfU2g?oc=5" class="event-title" target="_blank">
+                    Community Health Northwest Florida targeted in cyber attack - Pensacola News Journal
+                </a>
+                <div class="event-meta">
+                    2024-12-27 18:08 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNNnlFcGR6SDFSR3lEZTNBYjRHd2pBRUZFZHlKUG4tTzEzd2pCN2NFOXAwcFZ5eHRlSXVFYnkyZzBGM3BxVXBJRXhxMnJMMi1YeF9fT3RmOW1WYjh6YklyY20yREgyREZfYk8yY2pZQS1hUDFzcGxnbUNSMm5MSGsxQlJoLXJOOUNjWnplcjZHSXkzUFJER2M3cHJuNFFPUFpQbGxQYjk1RGdBdTM4NmZ5VVU3YmtkNEo1T3o3ZDB5VXNXbVdTVF9yZw?oc=5" class="event-title" target="_blank">
+                    Hackers hijack a wide range of companies' Chrome extensions, experts say - Reuters
+                </a>
+                <div class="event-meta">
+                    2024-12-27 17:29 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMizAFBVV95cUxOdmFnUXJQTjhxU2pVY3lCUTJwRGlrZW5HWk5FSVUxbi1tbk55Q1dnM1FjQ0pZbzJSVUU3RVdRakoyR001ZDdfVnpmX29XcnhNZjBjTVNNZDNrZFRxRVBNbEM3S3N3UExNWVdLdGhHZnQ2Y2U3aGJ6X2tiM1RoVTlISXpiSDdYVFJ5eHh3YnQ5djdSaW9Za2Fsa09BTXIzNEVjb0FpVEhsUGNrRk1UTXRkbUk3NWd1bDJUZ2ZmM2RVWkRKekcyQmo1aXBqZm8?oc=5" class="event-title" target="_blank">
+                    US adds 9th telcom to list of companies hacked by Chinese-backed Salt Typhoon cyberespionage - Reuters
+                </a>
+                <div class="event-meta">
+                    2024-12-27 15:03 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxOR0ctaThnNXZrck5SRXZoSGt5Qmg2cEtYb0RfVEhqeEZkS3BrQUhCampTYzRfdDdVZDVqdjAzQTdlUGRjckVWOUhCcldLVzU0RHAyMG1YQ3BXMHZvX01jX3RqaHY3MUxta05ZZUFYVVN2cjBzMTA3eFhaZy1mSGx6ZndweTFqRTdfOXpkWFIwU3ZGM1NMV0xwSk9zczdxSS0tV2JrbUwxQzNaMVhfaGtoWFRtSW4xYWQ5ZkE?oc=5" class="event-title" target="_blank">
+                    Cyber firm’s Chrome extension hijacked to steal user passwords - TechCrunch
+                </a>
+                <div class="event-meta">
+                    2024-12-27 13:50 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE1xRG1iMDNiNWhac0RCOGlTakoydWN4aHNLR3FQNHAyN1Z2UVRFLW54QjM2T3YxRkVOUGJfUmR1b0JFd2g4OERhUFdkTlN4NGRIY2p2WjdQWE5tVEF2ZUpOZjBaT3RYRklYX3REdDBZQnk?oc=5" class="event-title" target="_blank">
+                    Cyber startup employee hacked to distribute malicious Chrome extension - The Record from Recorded Future News
+                </a>
+                <div class="event-meta">
+                    2024-12-27 09:42 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNVUNZYy00bmhpVlNwTERILUdPV2k1S29fbXJieDVFYWFoWmgxZEVNV2ZSV1lxa2FFT3pIQmNnY29hSEFZaTRDTnlmNFlsSE9FNkpGRGRyelNnNkc5Yk8xZE1VVXdNYXBkUHdTMDQ5WWZRODlCekx4S3VYMGVROFdRcUxSV3lsNWhYa0RYdUwzeklBTmxoT1l5ZExPdlJRUFUzUjFCR0VBUE5FZkV4dE1EQ24zOA?oc=5" class="event-title" target="_blank">
+                    Major cyber attack disrupts holiday season flights at Japan Airlines - Euronews
+                </a>
+                <div class="event-meta">
+                    2024-12-26 04:23 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiggFBVV95cUxNU1BkN3dJM2Vjdm5wWTR4dzVuVVZudHhlRE1FT2xNN0syRHNibFNQV0xUOExEUXNhaVFueGZXTjBUQ0htRkJaSVVTa1hwTjFCZTRmb1A1OFQ1blhYN1M5bzd0X3k1Zk1zSXUwYXhRT3NZdzZPTzNQajBfTXVOUmVjeXdB?oc=5" class="event-title" target="_blank">
+                    Japan Airlines Delays Flights After Cyberattack - The New York Times
+                </a>
+                <div class="event-meta">
+                    2024-12-25 21:46 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE14bFQ3T0VJT3ZhRFBIOUtPaVBpLTNOUkVpTGpXNVFKeWRndWxNTGhjOU5hYVNiMllDWXZGYjhVbUQxUGUtcFhWd2N5Z1lBcmFPS1drUDFHUlAtSW9XdWt2TnlCYXRDZUp6OFY2MVdXUU5Yb1dHQW5DUElqQ1DSAYIBQVVfeXFMT0ZnM2tZTEdlUnllN3RocmJBUElnOWJfVFZFZFJzNm9tVDRrQTh4dXoxaUhtTHBHbzNYempyOXpWVzdkYU0zRm1KcVUxUWlKT0EwaUFDTWJ4V29peUxDU1VMWjdDRGgwekFOaV9BODc0a0ZONmlrNWl5eGkwcHhqeGlWdw?oc=5" class="event-title" target="_blank">
+                    Japan Airlines System Hit by Cyber Attack, Flight Operations Affected - CybersecurityNews
+                </a>
+                <div class="event-meta">
+                    2024-12-25 21:17 EST
+                </div>
+            </li>
+        
+            </ul>
+        </div>
+    </body>
+    </html>
+    

@@ -1,0 +1,11 @@
+# Main build settings
+[build]
+  command = "python main.py"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  PYTHON_VERSION = "3.10.6"  # Updated to match your local environment
+  TZ = "America/New_York"
+
+# Rest of the netlify.toml remains the same...
