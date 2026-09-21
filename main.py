@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import pytz
 from difflib import SequenceMatcher
 from typing import List, Dict
+import html
 import os
 
 class NewsFilter:
@@ -204,7 +205,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
             body {{
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
                 line-height: 1.6;
-                max-width: 900px;
+                max-width: 1800px;
                 margin: 0 auto;
                 padding: 20px;
                 background: var(--background);
@@ -250,8 +251,11 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
             }}
 
             .event-item {{
-                margin-bottom: 20px;
-                padding: 20px;
+                display: flex;
+                align-items: center;
+                gap: 24px;
+                margin-bottom: 10px;
+                padding: 14px 20px;
                 border-bottom: 1px solid var(--border-light);
                 transition: all 0.2s ease;
                 border-radius: 6px;
@@ -267,7 +271,11 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                 text-decoration: none;
                 font-weight: 500;
                 display: block;
-                margin-bottom: 8px;
+                flex: 1 1 auto;
+                min-width: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 font-size: 1.1em;
             }}
 
@@ -278,7 +286,8 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
             .event-meta {{
                 font-size: 0.9em;
                 color: var(--text-light);
-                margin-top: 8px;
+                flex: 0 0 auto;
+                white-space: nowrap;
                 padding-left: 12px;
                 border-left: 2px solid var(--primary-yellow);
             }}
@@ -329,7 +338,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
         published_time = convert_entry_published_gmt_to_est(entry.published)
         events_html += f"""
             <li class="event-item">
-                <a href="{entry.link}" class="event-title" target="_blank">
+                <a href="{entry.link}" class="event-title" title="{html.escape(entry.title)}" target="_blank">
                     {entry.title}
                 </a>
                 <div class="event-meta">

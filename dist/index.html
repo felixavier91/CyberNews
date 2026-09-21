@@ -21,7 +21,7 @@
             body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
                 line-height: 1.6;
-                max-width: 900px;
+                max-width: 1800px;
                 margin: 0 auto;
                 padding: 20px;
                 background: var(--background);
@@ -67,8 +67,11 @@
             }
 
             .event-item {
-                margin-bottom: 20px;
-                padding: 20px;
+                display: flex;
+                align-items: center;
+                gap: 24px;
+                margin-bottom: 10px;
+                padding: 14px 20px;
                 border-bottom: 1px solid var(--border-light);
                 transition: all 0.2s ease;
                 border-radius: 6px;
@@ -84,7 +87,11 @@
                 text-decoration: none;
                 font-weight: 500;
                 display: block;
-                margin-bottom: 8px;
+                flex: 1 1 auto;
+                min-width: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 font-size: 1.1em;
             }
 
@@ -95,7 +102,8 @@
             .event-meta {
                 font-size: 0.9em;
                 color: var(--text-light);
-                margin-top: 8px;
+                flex: 0 0 auto;
+                white-space: nowrap;
                 padding-left: 12px;
                 border-left: 2px solid var(--primary-yellow);
             }
@@ -131,12 +139,12 @@
         <div class="container">
             <div class="header">
                 <h1>This Week in Cyber</h1>
-                <p class="last-updated">Last updated: 2026-09-21 08:05 </p>
+                <p class="last-updated">Last updated: 2026-09-21 08:31 </p>
             </div>
             <ul class="event-list">
                 
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNd0NUUk9LeFNJN1pUY2JvNUZVd3BnOUowVTNILTJWaXJRaTJlS1F5Z0k0ZUgxdXIxTmhaOFpta1R5VmF2U3FISHhXWjlzSnNmWmxPNTdJV1FibWNVV2dscEttOTlRUjUwVTdHVG56dk1VenFTNTgtUU5MbVhQWDM3dm52dnJYajAwV0lLRG9fSXRpLXlmN3VzX3ljRWQ4a1NWUmZzSFJWZ1VJWmUzSWlpLXY5NWc?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNd0NUUk9LeFNJN1pUY2JvNUZVd3BnOUowVTNILTJWaXJRaTJlS1F5Z0k0ZUgxdXIxTmhaOFpta1R5VmF2U3FISHhXWjlzSnNmWmxPNTdJV1FibWNVV2dscEttOTlRUjUwVTdHVG56dk1VenFTNTgtUU5MbVhQWDM3dm52dnJYajAwV0lLRG9fSXRpLXlmN3VzX3ljRWQ4a1NWUmZzSFJWZ1VJWmUzSWlpLXY5NWc?oc=5" class="event-title" title="Kenya&#x27;s malware attacks jump 65pc as cyber threats show mixed trends - Africa Business Communities" target="_blank">
                     Kenya's malware attacks jump 65pc as cyber threats show mixed trends - Africa Business Communities
                 </a>
                 <div class="event-meta">
@@ -145,8 +153,8 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMi5wFBVV95cUxNQ3Q4QTdkU1E4bEVDZ0VEVzJRS2FMU2gzRlJhTERhNXVRMEExQ2xDaE41YVdJVE05clFIcktaSjlpUmZxcWU5WHR5TWczWTN6RklIUFNJQl9WbllvYm1uV1lzWHlzdXVNYk5WLWtlZUJKNDdObUQyRFN0MjRrcFctMHZKdHZZTGF4U2t0ZERzX05TTXJpQ1VGUTBlNGRVWHI0UmpTaHNhZS1TbUllUzJDNDlJTWRHQTg3QkxBX1RreW9CckFORmY4T2J1dGpob3VBa095VlJJdk11NTV3UDZzSllKVXFkcnM?oc=5" class="event-title" target="_blank">
-                    Freelance tech pros beware: North Korean cyber criminals are targeting gig workers in a new malware campaign - IT Pro
+                <a href="https://news.google.com/rss/articles/CBMi5wFBVV95cUxNQ3Q4QTdkU1E4bEVDZ0VEVzJRS2FMU2gzRlJhTERhNXVRMEExQ2xDaE41YVdJVE05clFIcktaSjlpUmZxcWU5WHR5TWczWTN6RklIUFNJQl9WbllvYm1uV1lzWHlzdXVNYk5WLWtlZUJKNDdObUQyRFN0MjRrcFctMHZKdHZZTGF4U2t0ZERzX05TTXJpQ1VGUTBlNGRVWHI0UmpTaHNhZS1TbUllUzJDNDlJTWRHQTg3QkxBX1RreW9CckFORmY4T2J1dGpob3VBa095VlJJdk11NTV3UDZzSllKVXFkcnM?oc=5" class="event-title" title="Freelance tech pros beware: North Korean cyber criminals are targeting gig workers in a new malware campaign - itpro.com" target="_blank">
+                    Freelance tech pros beware: North Korean cyber criminals are targeting gig workers in a new malware campaign - itpro.com
                 </a>
                 <div class="event-meta">
                     2026-09-21 07:29 EST
@@ -154,7 +162,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxQRG5QTTViQVJpaVV0UzdhSXJzQ3RUMUtta25PYTA3RXlMb0lGQUVTejF4ZzFsUHFOeTZzOWRpbk1rLV91SjVzSG5YMktjbzM4Qkw0NEdzeV8tSm9jZUI2Z3drUUZlQU1Ra2dIaGlGb2lRQk1nNnZLeUhQY01NVWUtRnFHQklMZw?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxQRG5QTTViQVJpaVV0UzdhSXJzQ3RUMUtta25PYTA3RXlMb0lGQUVTejF4ZzFsUHFOeTZzOWRpbk1rLV91SjVzSG5YMktjbzM4Qkw0NEdzeV8tSm9jZUI2Z3drUUZlQU1Ra2dIaGlGb2lRQk1nNnZLeUhQY01NVWUtRnFHQklMZw?oc=5" class="event-title" title="Gemini Joins the AI-Hacking Club - WSJ" target="_blank">
                     Gemini Joins the AI-Hacking Club - WSJ
                 </a>
                 <div class="event-meta">
@@ -163,7 +171,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTE9BcGZkd2R2dEJMd2hfWDRzUnlZTTl2UGJtRUIyVmgzeW14a1hYX1lSbllFcTlzbUtIZzZqQi1tRFhfRHlud1N4OHRCMEpudUp4MWpOZzVXMTNLZ1A2Vm1JV0tYS2tyS01TMWtlMnI5QjBEeks4LUxhQ1VwMTkwdw?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTE9BcGZkd2R2dEJMd2hfWDRzUnlZTTl2UGJtRUIyVmgzeW14a1hYX1lSbllFcTlzbUtIZzZqQi1tRFhfRHlud1N4OHRCMEpudUp4MWpOZzVXMTNLZ1A2Vm1JV0tYS2tyS01TMWtlMnI5QjBEeks4LUxhQ1VwMTkwdw?oc=5" class="event-title" title="China and Madagascar collaborate to dismantle telecom and cyber fraud networks - China Daily" target="_blank">
                     China and Madagascar collaborate to dismantle telecom and cyber fraud networks - China Daily
                 </a>
                 <div class="event-meta">
@@ -172,8 +180,8 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMi4wFBVV95cUxNb3VpU0J5RnRtWWpOMngxSnpCVmZubi02MnluNmVfaU9pWDZ2WTBtRldIXzJGMWJ3dEZwRUJ5bVNUd2xUNDVqYzl6Yk43ODNtd0p1WERqb0p5TFIybXl6eG9HQ0RkZVBvazNKVWc4SUtBQ1owWXB3dU1jN1hzeS1SRU12aHFUNGt2QXdaZWY1QUc5U0RlcUZuVXJOeVBQdV9OeW0yalZKLXJ4b2JteG93M2MwU0JkWk51RWNFUURFSG5pQXVDMXpabkE5ZjdoRGpKVU9NRmMxUjVPMU5tU2JuMGgwUQ?oc=5" class="event-title" target="_blank">
-                    HKCERT highlights internet-edge device risks as attackers target VPNs, firewalls and remote access systems - industrialcyber.co
+                <a href="https://news.google.com/rss/articles/CBMi4wFBVV95cUxNb3VpU0J5RnRtWWpOMngxSnpCVmZubi02MnluNmVfaU9pWDZ2WTBtRldIXzJGMWJ3dEZwRUJ5bVNUd2xUNDVqYzl6Yk43ODNtd0p1WERqb0p5TFIybXl6eG9HQ0RkZVBvazNKVWc4SUtBQ1owWXB3dU1jN1hzeS1SRU12aHFUNGt2QXdaZWY1QUc5U0RlcUZuVXJOeVBQdV9OeW0yalZKLXJ4b2JteG93M2MwU0JkWk51RWNFUURFSG5pQXVDMXpabkE5ZjdoRGpKVU9NRmMxUjVPMU5tU2JuMGgwUQ?oc=5" class="event-title" title="HKCERT highlights internet-edge device risks as attackers target VPNs, firewalls and remote access systems - Industrial Cyber" target="_blank">
+                    HKCERT highlights internet-edge device risks as attackers target VPNs, firewalls and remote access systems - Industrial Cyber
                 </a>
                 <div class="event-meta">
                     2026-09-21 06:10 EST
@@ -181,7 +189,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNNlhfNzZkZ20wMmZ4LVk3OGdpaEZhTk9yUXBOWnB6ZzZ2c3BVYTRzYmNiS1NyX1NXV3VaLUlYbmdSUUxlbGtPN3JNN3BDNGp6ZHE4ekZmcHFzelZLQmMtYW5IX0ctMmhUSk10bkQ5Q1h6NGl0cWJMNDFsaFdJOFpqNFpva0pCZVJpVHFwZ2lfcTVOM3Qtd2J0b3VNREtRRE5WbEY5dElNVW96d2xLUHQ1X0VfNXUwT1o3WHI0aGdVOGloV21EV2dNdw?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNNlhfNzZkZ20wMmZ4LVk3OGdpaEZhTk9yUXBOWnB6ZzZ2c3BVYTRzYmNiS1NyX1NXV3VaLUlYbmdSUUxlbGtPN3JNN3BDNGp6ZHE4ekZmcHFzelZLQmMtYW5IX0ctMmhUSk10bkQ5Q1h6NGl0cWJMNDFsaFdJOFpqNFpva0pCZVJpVHFwZ2lfcTVOM3Qtd2J0b3VNREtRRE5WbEY5dElNVW96d2xLUHQ1X0VfNXUwT1o3WHI0aGdVOGloV21EV2dNdw?oc=5" class="event-title" title="Cybercrime feud erupts on dark web as notorious group claims hijack of rival&#x27;s website - Reuters" target="_blank">
                     Cybercrime feud erupts on dark web as notorious group claims hijack of rival's website - Reuters
                 </a>
                 <div class="event-meta">
@@ -190,17 +198,8 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMigwFBVV95cUxNUFpjdkZwaW5mLUd0VFAtMDdXb1d6NzdZbFhJSXNybEtrWHJNTUNJT1FGQnNrQmNSSnFNWjQyVHZnTVh4OFRNWG9ibE5QQW1DYS1nYjhWNlhIZm5xdnVocGZCZEhDNTlCaWRfMTROSHNSMFBJa2ZDVWlmQW9TSWE4WWdWdw?oc=5" class="event-title" target="_blank">
-                    Threat actors are logging in - ITWeb
-                </a>
-                <div class="event-meta">
-                    2026-09-21 05:02 EST
-                </div>
-            </li>
-        
-            <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMijAFBVV95cUxPcFBLZWl3aFAwRTg0R2pLQ3NxLTg1dUMzZ19fVThBOHlBTHYyRnFONWtzc0FsejhfWWk4MHpXSzdISm5KUlBVZk9OaVZuQTdWWXowWGMycXFIb0NaUUk3RTdzeTRWVGpUWE1HZnlrWjJWYzFCa2YzUjBWOHVncC1ORllNYTZTNVNHWDRwQw?oc=5" class="event-title" target="_blank">
-                    EU Cyber Resilience Act Reporting Rules Go Live As ENISA Launches Single Cyber Incident Platform - linkedin.com
+                <a href="https://news.google.com/rss/articles/CBMijAFBVV95cUxPcFBLZWl3aFAwRTg0R2pLQ3NxLTg1dUMzZ19fVThBOHlBTHYyRnFONWtzc0FsejhfWWk4MHpXSzdISm5KUlBVZk9OaVZuQTdWWXowWGMycXFIb0NaUUk3RTdzeTRWVGpUWE1HZnlrWjJWYzFCa2YzUjBWOHVncC1ORllNYTZTNVNHWDRwQw?oc=5" class="event-title" title="EU Cyber Resilience Act Reporting Rules Go Live As ENISA Launches Single Cyber Incident Platform - LinkedIn" target="_blank">
+                    EU Cyber Resilience Act Reporting Rules Go Live As ENISA Launches Single Cyber Incident Platform - LinkedIn
                 </a>
                 <div class="event-meta">
                     2026-09-21 05:01 EST
@@ -208,7 +207,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxPeFlDcFZpaDNqNGtab3BOQjhJUC1iSWVVeW5HRE5WUExWUTlrTzcxY0lnd2doOFBXbFdpdGZKR0xFQjl2aXRuUVhEQ2w1dkZnOWdRTFlzN0N4UGZYX0ZyWXI1N1hrUTNxQ01rMElNY2VodmhwazZSUkZTTExKWi1OVG8yRzk3WThieVVPdl9BRm1wYnVJVFZiZHl2WTZfZExtbkpzcTVVd01qQVpaUkVYazV6UlFFV1B2OU9WUVBWeUs?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxPeFlDcFZpaDNqNGtab3BOQjhJUC1iSWVVeW5HRE5WUExWUTlrTzcxY0lnd2doOFBXbFdpdGZKR0xFQjl2aXRuUVhEQ2w1dkZnOWdRTFlzN0N4UGZYX0ZyWXI1N1hrUTNxQ01rMElNY2VodmhwazZSUkZTTExKWi1OVG8yRzk3WThieVVPdl9BRm1wYnVJVFZiZHl2WTZfZExtbkpzcTVVd01qQVpaUkVYazV6UlFFV1B2OU9WUVBWeUs?oc=5" class="event-title" title="Craneware shares plunge 23% after cyber incident, weaker outlook By Investing.com - Investing.com South Africa" target="_blank">
                     Craneware shares plunge 23% after cyber incident, weaker outlook By Investing.com - Investing.com South Africa
                 </a>
                 <div class="event-meta">
@@ -217,7 +216,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxNN0NING1SMjliWDJNRjByT0M1ZjdsU09UUXVRUXJqeWx2aU1YU1lVczJ6S1R5NTVsQnFWVzJXalhYOWdkZmZ3cDJuZ0JlM2NTVm9tZWNUbEJrbXZsSXh6SWRWdlg1WVRabHNPNVdmaUxWNzVKOW8wWWg4X1pBeWZER2x1aHNYV2NFVUdqM1pvRHNVZXA3TTFQMnB4QjNrT0F4YVRENjI5c2hIQQ?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxNN0NING1SMjliWDJNRjByT0M1ZjdsU09UUXVRUXJqeWx2aU1YU1lVczJ6S1R5NTVsQnFWVzJXalhYOWdkZmZ3cDJuZ0JlM2NTVm9tZWNUbEJrbXZsSXh6SWRWdlg1WVRabHNPNVdmaUxWNzVKOW8wWWg4X1pBeWZER2x1aHNYV2NFVUdqM1pvRHNVZXA3TTFQMnB4QjNrT0F4YVRENjI5c2hIQQ?oc=5" class="event-title" title="Craneware Resets FY27 Guidance After 340B Slowdown and Cyber Incident - AskTraders" target="_blank">
                     Craneware Resets FY27 Guidance After 340B Slowdown and Cyber Incident - AskTraders
                 </a>
                 <div class="event-meta">
@@ -226,7 +225,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxOTkdGd1RQWEYxajB2NWVubThfQTlUeDBCc1hFMVUxZmI3VnBtUW1BaTRiRllBUTE2Xy1GS190SDBiRXI4c21LdkE1VnpNNDBTdDJPNzZDNHpzQmRBSlJFdlcwWHR1ZXpjYXZjeVZ6ZU16ZU9mbXUtVlU5UmZsUUJwaC1RNGltZDMzWTNYVl9qUGljVzh4c2xGbHFSV1BYZ0diSkFjcGNhcXJpVnNRQkFlSi1BQmF3MWkwWDI4a1JIa0FlWUlR?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxOTkdGd1RQWEYxajB2NWVubThfQTlUeDBCc1hFMVUxZmI3VnBtUW1BaTRiRllBUTE2Xy1GS190SDBiRXI4c21LdkE1VnpNNDBTdDJPNzZDNHpzQmRBSlJFdlcwWHR1ZXpjYXZjeVZ6ZU16ZU9mbXUtVlU5UmZsUUJwaC1RNGltZDMzWTNYVl9qUGljVzh4c2xGbHFSV1BYZ0diSkFjcGNhcXJpVnNRQkFlSi1BQmF3MWkwWDI4a1JIa0FlWUlR?oc=5" class="event-title" title="Tanker incidents highlight marine sector’s growing cyber exposure, Howden Re says - theinsurer.com" target="_blank">
                     Tanker incidents highlight marine sector’s growing cyber exposure, Howden Re says - theinsurer.com
                 </a>
                 <div class="event-meta">
@@ -235,7 +234,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxPem9wNUJFSVhmeGFwdnlFZGtQajEteFRLZTJ5T1Z4Q0VjMF9fcEo3a0J2cFhOcVJXQTI2NW1ObEhkN0p1SlBSZ3RmOGRfMXBZUTJ2QTdGSmZ5UllONW1PdlpCTWI4NDFsdlVqa1dNX3Z5cHY5Q3R4d2Ztb1I1cUx5aUdfT2F2LUp1eTQtaUM0bmQxa1VDMUJhYkpOODBRM3FuUTYxTXgyRTFIXzJ6SEUyLXhTUllrSE0tbXhNaEROQkQxNmF0NzRCOHJ3TQ?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxPem9wNUJFSVhmeGFwdnlFZGtQajEteFRLZTJ5T1Z4Q0VjMF9fcEo3a0J2cFhOcVJXQTI2NW1ObEhkN0p1SlBSZ3RmOGRfMXBZUTJ2QTdGSmZ5UllONW1PdlpCTWI4NDFsdlVqa1dNX3Z5cHY5Q3R4d2Ztb1I1cUx5aUdfT2F2LUp1eTQtaUM0bmQxa1VDMUJhYkpOODBRM3FuUTYxTXgyRTFIXzJ6SEUyLXhTUllrSE0tbXhNaEROQkQxNmF0NzRCOHJ3TQ?oc=5" class="event-title" title="US boards two tankers after cyber incidents reach engine-room systems - Insurance Business" target="_blank">
                     US boards two tankers after cyber incidents reach engine-room systems - Insurance Business
                 </a>
                 <div class="event-meta">
@@ -244,8 +243,8 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxQS0tUZFprbjJkbm5TUkJEcTNZRThMUllvQzk5OXZyTmxEYjJmNGJ6VVVLU2I4dmRsTV9NSzd6UHFxZ013RXJLWVRoblNpYnRBZEhpQXpXWTVxa2p2NDNTWTFSa3loME1jZTk3eDdTUXE3RFJGdEs0Q0U5bjVQblE5S1hqcEgtdWhSOFk3SC1YVGJkUDFkOVpIajZVN3BGZDBqR3JSY2lET01waWcxN1c0SlVZV3MwNXhmcFV1YzBUUndkdVhZRkVmOHdyOA?oc=5" class="event-title" target="_blank">
-                    ShinyHunters allegedly launches Cyber Attack on Clop Ransomware Group leading to Data Theft - Cybersecurity Insiders
+                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxQS0tUZFprbjJkbm5TUkJEcTNZRThMUllvQzk5OXZyTmxEYjJmNGJ6VVVLU2I4dmRsTV9NSzd6UHFxZ013RXJLWVRoblNpYnRBZEhpQXpXWTVxa2p2NDNTWTFSa3loME1jZTk3eDdTUXE3RFJGdEs0Q0U5bjVQblE5S1hqcEgtdWhSOFk3SC1YVGJkUDFkOVpIajZVN3BGZDBqR3JSY2lET01waWcxN1c0SlVZV3MwNXhmcFV1YzBUUndkdVhZRkVmOHdyOA?oc=5" class="event-title" title="ShinyHunters allegedly launches Cyber Attack on Clop Ransomware Group leading to Data Theft - cybersecurity-insiders.com" target="_blank">
+                    ShinyHunters allegedly launches Cyber Attack on Clop Ransomware Group leading to Data Theft - cybersecurity-insiders.com
                 </a>
                 <div class="event-meta">
                     2026-09-21 02:04 EST
@@ -253,7 +252,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxPTmZhT2IzSEhIZWRCdUthbUkzVnIycm0xcnVLQnlJOE1pWm9BVFBnNDBLNGZHNWZoWUVhdGx3S3lCd3pUWC01QlZxVXJkTzNqOV9kUFhVX3hHWGZNamJRUmJ1cHctR1hhTHVfMUZGRUt3S0dxQndnSU9yM2ZrU1dLM0FlTWxYdGw3VHNzNGtrMU1IWG50cjBkZ0NTeTdHLTVIZVhpeGU5Mm1PaEwyRUJBREw4YnVIQU5pUFVmMUJGUzhGcXdrUGZUY2hyaEhtcGky0gHWAUFVX3lxTE43N3RPN2tHQlVqbzQwSU9UcmpLNXZOR1QyRTBPUTRKUjdGTHRzOXdtWmcwZ0Z3bWVMMmNCbkQweDRmX1ZQblVTLW9hTHptajZydzA4cUl1WWJkQ0dEc1dSNG9KUXVvS2ZtVjY3TmQwdUhsZk9EUWtidFE4dmRwUEhWeGZCU1VOVE9hMm5OalVGTVpRdVZjMV93Z2VxbnZEVmh4VkVldzdmaFZ2UXJJTkJ1M1RrbWs3RlhTUUJrUGlKVDlsQ0tFSXNQc1dTTjRGVlRIbXNmX2c?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxPTmZhT2IzSEhIZWRCdUthbUkzVnIycm0xcnVLQnlJOE1pWm9BVFBnNDBLNGZHNWZoWUVhdGx3S3lCd3pUWC01QlZxVXJkTzNqOV9kUFhVX3hHWGZNamJRUmJ1cHctR1hhTHVfMUZGRUt3S0dxQndnSU9yM2ZrU1dLM0FlTWxYdGw3VHNzNGtrMU1IWG50cjBkZ0NTeTdHLTVIZVhpeGU5Mm1PaEwyRUJBREw4YnVIQU5pUFVmMUJGUzhGcXdrUGZUY2hyaEhtcGky0gHWAUFVX3lxTE43N3RPN2tHQlVqbzQwSU9UcmpLNXZOR1QyRTBPUTRKUjdGTHRzOXdtWmcwZ0Z3bWVMMmNCbkQweDRmX1ZQblVTLW9hTHptajZydzA4cUl1WWJkQ0dEc1dSNG9KUXVvS2ZtVjY3TmQwdUhsZk9EUWtidFE4dmRwUEhWeGZCU1VOVE9hMm5OalVGTVpRdVZjMV93Z2VxbnZEVmh4VkVldzdmaFZ2UXJJTkJ1M1RrbWs3RlhTUUJrUGlKVDlsQ0tFSXNQc1dTTjRGVlRIbXNmX2c?oc=5" class="event-title" title="Notorious cyber crime group claims hijack of key rival&#x27;s site on dark web | World News - Hindustan Times" target="_blank">
                     Notorious cyber crime group claims hijack of key rival's site on dark web | World News - Hindustan Times
                 </a>
                 <div class="event-meta">
@@ -262,7 +261,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxOTm8wWE91b0dxbm1UOGpxXzhQb2YxNGJ5Q0JmLXlFVTlRZVBTTXVMMktZNWtReHRvQjcyb0FRMHhLZl90YnY2RjNtNWdobWtubmdmejQxZll0T1pUQkRJU2hRWFVvQzBPeGZuZmZzYmJBNVVEMllsQkZiakdmdEZaRGk4ckM4ZjBJ?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxOTm8wWE91b0dxbm1UOGpxXzhQb2YxNGJ5Q0JmLXlFVTlRZVBTTXVMMktZNWtReHRvQjcyb0FRMHhLZl90YnY2RjNtNWdobWtubmdmejQxZll0T1pUQkRJU2hRWFVvQzBPeGZuZmZzYmJBNVVEMllsQkZiakdmdEZaRGk4ckM4ZjBJ?oc=5" class="event-title" title="Police Arrest 26,782 in Financial Crime, Cyber Fraud Crackdown - 조선일보" target="_blank">
                     Police Arrest 26,782 in Financial Crime, Cyber Fraud Crackdown - 조선일보
                 </a>
                 <div class="event-meta">
@@ -271,7 +270,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxNdmJzb2drYTVBV3dEMmQ0dnFtSGF0ZTdRcUQ0SGcxMjR0Z1FGeXlpbGZBT1dCT1ZpSEFVSXNBaUh4dmE0WFRiOC1UdmZFOENkWFBCSks5a2hVanBfdFM4T1lUR05yS21kNWsyZ3NnTXYzUkVJalhpbTJybElyOFZXVW9KX05fSVMtRFpIakFIc2RpWnludy1ZdWI5c1dLSkZPWC1KeDhsa1pBTUpRS2pvbFdOWTlrdWNfNFJHMXJFc1o4ZTZVcDJDdU9IQQ?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxNdmJzb2drYTVBV3dEMmQ0dnFtSGF0ZTdRcUQ0SGcxMjR0Z1FGeXlpbGZBT1dCT1ZpSEFVSXNBaUh4dmE0WFRiOC1UdmZFOENkWFBCSks5a2hVanBfdFM4T1lUR05yS21kNWsyZ3NnTXYzUkVJalhpbTJybElyOFZXVW9KX05fSVMtRFpIakFIc2RpWnludy1ZdWI5c1dLSkZPWC1KeDhsa1pBTUpRS2pvbFdOWTlrdWNfNFJHMXJFc1o4ZTZVcDJDdU9IQQ?oc=5" class="event-title" title="What the Gemini and Claude hacking incidents mean for cyber insurers - Insurance Business" target="_blank">
                     What the Gemini and Claude hacking incidents mean for cyber insurers - Insurance Business
                 </a>
                 <div class="event-meta">
@@ -280,8 +279,8 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMirgFBVV95cUxNRVYyZTQ4em5uaHF3VHoxNGdUSHRuQkhEbE9ZVXoyS19HT0dmRm5mRnlRVUp6MUVSbEQ0cGg0OWlmdkgyRjhSLVZ1dlZLbHYtTmowcVhKOGZwVnAtdFRkQmtNb1NVekdJdUZOdmtTMlBYUWZ2QmxGeTlWRGp4emlxRVVaZFpnbUZKb0c4Y0hOZklyakR4aXZZam5NRVI5Vm9uWFlOcW4wQzBuUXhSMEE?oc=5" class="event-title" target="_blank">
-                    1 year after cyber attack: Nevada strengthens defenses with new tools – KLAS - 8newsnow.com
+                <a href="https://news.google.com/rss/articles/CBMirgFBVV95cUxNRVYyZTQ4em5uaHF3VHoxNGdUSHRuQkhEbE9ZVXoyS19HT0dmRm5mRnlRVUp6MUVSbEQ0cGg0OWlmdkgyRjhSLVZ1dlZLbHYtTmowcVhKOGZwVnAtdFRkQmtNb1NVekdJdUZOdmtTMlBYUWZ2QmxGeTlWRGp4emlxRVVaZFpnbUZKb0c4Y0hOZklyakR4aXZZam5NRVI5Vm9uWFlOcW4wQzBuUXhSMEE?oc=5" class="event-title" title="1 year after cyber attack: Nevada strengthens defenses with new tools – KLAS - KLAS 8 News Now" target="_blank">
+                    1 year after cyber attack: Nevada strengthens defenses with new tools – KLAS - KLAS 8 News Now
                 </a>
                 <div class="event-meta">
                     2026-09-20 21:36 EST
@@ -289,7 +288,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZkhSN3B6S3Nqd1J1V09NVEEzOUE1MVotbmlYc3RPWDU4ZkN3UzlOLVdXT0tyWDFGc2t1bU5pZF9BM3pVMXhVajlrUEs4Y0l6eF94a2htcU8yRXd1QjBqVlI0cjlBczhmR0Nyb3J5M19HMHdUemN3NTFqMnRjTjNaamozTjc3aE51RlEzUFFTUEVhc3FYU2EzRmUtU09aVFQ3ZWIyd1RHd2t0aXRheVJQc3h5NmkzM0g3?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZkhSN3B6S3Nqd1J1V09NVEEzOUE1MVotbmlYc3RPWDU4ZkN3UzlOLVdXT0tyWDFGc2t1bU5pZF9BM3pVMXhVajlrUEs4Y0l6eF94a2htcU8yRXd1QjBqVlI0cjlBczhmR0Nyb3J5M19HMHdUemN3NTFqMnRjTjNaamozTjc3aE51RlEzUFFTUEVhc3FYU2EzRmUtU09aVFQ3ZWIyd1RHd2t0aXRheVJQc3h5NmkzM0g3?oc=5" class="event-title" title="Report: Just 2% of Australian firms ready for AI-driven cyber attacks - Cyber Daily" target="_blank">
                     Report: Just 2% of Australian firms ready for AI-driven cyber attacks - Cyber Daily
                 </a>
                 <div class="event-meta">
@@ -298,7 +297,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxPejFOYmY4WjVPYVRkckljV19xT0NROVFsdUNyMENKLXFILXlxeWluaVppVUVzTkJkcUZOWmNPS1hwUWZVWEtIdUg5U3p1OXlXSFlMM21UUHpMdmtqWGpORUJNNnZoQWhKWWF4LURVdmg4aVMzUDlqQlo0N3o2QnBLZjNXd2E2U0p3LTJBQkNSVWxRaEtDWFM0U1RoQlpSajJtN1ZJRg?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxPejFOYmY4WjVPYVRkckljV19xT0NROVFsdUNyMENKLXFILXlxeWluaVppVUVzTkJkcUZOWmNPS1hwUWZVWEtIdUg5U3p1OXlXSFlMM21UUHpMdmtqWGpORUJNNnZoQWhKWWF4LURVdmg4aVMzUDlqQlo0N3o2QnBLZjNXd2E2U0p3LTJBQkNSVWxRaEtDWFM0U1RoQlpSajJtN1ZJRg?oc=5" class="event-title" title="North Korea and Cyber Warfare (Lazarus Group and ByBit Hack – Lawsuit Filed) - Modern Tokyo Times" target="_blank">
                     North Korea and Cyber Warfare (Lazarus Group and ByBit Hack – Lawsuit Filed) - Modern Tokyo Times
                 </a>
                 <div class="event-meta">
@@ -307,8 +306,8 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxPbEdNLVY5X0dCeVAwZHRBdFNTZXNrbEFONm96dDJJQmk5WllaTkxKbXN4OTk4cmJvNmtMRThtczJlZG1JRmRqUnNoYzVpeE9DbjRwZUl5UHR6TEl6QnRvaE04UF80SkV0MkdEbjhxQi1sdDMwRnRaRnNmWUg2VTg2VFVPalpYTkg3UWdHVTJwZW1xQQ?oc=5" class="event-title" target="_blank">
-                    CISA & NIST Issue New Security Guidance To Counter Token Theft and Forgery Attacks - linkedin.com
+                <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxPbEdNLVY5X0dCeVAwZHRBdFNTZXNrbEFONm96dDJJQmk5WllaTkxKbXN4OTk4cmJvNmtMRThtczJlZG1JRmRqUnNoYzVpeE9DbjRwZUl5UHR6TEl6QnRvaE04UF80SkV0MkdEbjhxQi1sdDMwRnRaRnNmWUg2VTg2VFVPalpYTkg3UWdHVTJwZW1xQQ?oc=5" class="event-title" title="CISA &amp; NIST Issue New Security Guidance To Counter Token Theft and Forgery Attacks - LinkedIn" target="_blank">
+                    CISA & NIST Issue New Security Guidance To Counter Token Theft and Forgery Attacks - LinkedIn
                 </a>
                 <div class="event-meta">
                     2026-09-20 14:00 EST
@@ -316,7 +315,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxPaXNJX052S2pEMTdWVkRNM3RvQVZQend3ZV9fdXNGVUN3cmVkZ1JJcnpSbEwwWV9HZmlyM2hCbmRTeVJfVzBaeE40dXIyS2s0Z3pRdy1SRjNWWnY4TVZBVk1Qa181c2RaRnVSZUUtT1dwMVZrTDByTHNkWE1mbUxKVU5MN1ZLQzl5M0V4dzR1c3V2SUJmXzhveUE5bllCSjEtYTUwTWxyd3VGM0pYdVJHNHlJQU1iUUJYZTBQYXQ2bi1KNmEtX0E3aVFwbw?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxPaXNJX052S2pEMTdWVkRNM3RvQVZQend3ZV9fdXNGVUN3cmVkZ1JJcnpSbEwwWV9HZmlyM2hCbmRTeVJfVzBaeE40dXIyS2s0Z3pRdy1SRjNWWnY4TVZBVk1Qa181c2RaRnVSZUUtT1dwMVZrTDByTHNkWE1mbUxKVU5MN1ZLQzl5M0V4dzR1c3V2SUJmXzhveUE5bllCSjEtYTUwTWxyd3VGM0pYdVJHNHlJQU1iUUJYZTBQYXQ2bi1KNmEtX0E3aVFwbw?oc=5" class="event-title" title="EU Cyber Resilience Act Brings 24-Hour Vulnerability Reporting Into Force - TradingView" target="_blank">
                     EU Cyber Resilience Act Brings 24-Hour Vulnerability Reporting Into Force - TradingView
                 </a>
                 <div class="event-meta">
@@ -325,7 +324,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE9abUpjT1NWNjBiSEZrbmNfeHVRd2JWamhMVUJJUURwZzc4UUZTU20wUy1pcXpvUTlOcjhRNF9Mc0tmb3gxdGs3RzVWNWdJdVhtMndZSklUR19uemJtcHFLZlphcHBwUDlN?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE9abUpjT1NWNjBiSEZrbmNfeHVRd2JWamhMVUJJUURwZzc4UUZTU20wUy1pcXpvUTlOcjhRNF9Mc0tmb3gxdGs3RzVWNWdJdVhtMndZSklUR19uemJtcHFLZlphcHBwUDlN?oc=5" class="event-title" title="Google’s Gemini hacked real companies during a cyber test linked to Israeli startup Irregular - calcalistech.com" target="_blank">
                     Google’s Gemini hacked real companies during a cyber test linked to Israeli startup Irregular - calcalistech.com
                 </a>
                 <div class="event-meta">
@@ -334,7 +333,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE9xQ25WNU1mQW41eU9JajRkSzl3M3NNSVJ3dVM4TmRzZTByWm84clhCYWpXZzJuTGE0LWpBUERxWXNuQVhiSHhabGlBOGFrWVZNaVA0U21nbExmOW8?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE9xQ25WNU1mQW41eU9JajRkSzl3M3NNSVJ3dVM4TmRzZTByWm84clhCYWpXZzJuTGE0LWpBUERxWXNuQVhiSHhabGlBOGFrWVZNaVA0U21nbExmOW8?oc=5" class="event-title" title="Google&#x27;s Gemini AI hacked three companies in security test - BBC" target="_blank">
                     Google's Gemini AI hacked three companies in security test - BBC
                 </a>
                 <div class="event-meta">
@@ -343,7 +342,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxPX0JhTE9aZU1IUkRrcDRwSTBwVmpQMkR2WGpFSWxpOHR3Sy0yVU1DOTBSMFB5Q0lOUEpCN0pnajJYeHk3Yk9fOEZ3N1huUlgwd2Q3UzlGZVBiUzBwaXV6aEdEWXlZTTJCOUJGZ1FmaWlKNkR0RFJNaElwNERRd1NDcjRzVEV0X1JfY3MtTS1UWnFTa3M2WU5mS0tvRS0?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxPX0JhTE9aZU1IUkRrcDRwSTBwVmpQMkR2WGpFSWxpOHR3Sy0yVU1DOTBSMFB5Q0lOUEpCN0pnajJYeHk3Yk9fOEZ3N1huUlgwd2Q3UzlGZVBiUzBwaXV6aEdEWXlZTTJCOUJGZ1FmaWlKNkR0RFJNaElwNERRd1NDcjRzVEV0X1JfY3MtTS1UWnFTa3M2WU5mS0tvRS0?oc=5" class="event-title" title="3 Cyber Insurance Stocks Retail Investors May Want To Watch After Gemini Hacking News - Yahoo Finance" target="_blank">
                     3 Cyber Insurance Stocks Retail Investors May Want To Watch After Gemini Hacking News - Yahoo Finance
                 </a>
                 <div class="event-meta">
@@ -352,7 +351,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxNRG9sRm9tNDZGMVdoRk5BYnE4RUFHQTUyVE5uQWQxUko4XzhnRWpHT2w3dlIxczdiUjd1QUVTQ3ZrVjNXYjZFSmFDRjVRUnhkTjBFY2x3RlV2OTdWYVFsbWpFeWNWbm1yXzJiemR5bGRfUmRJd3pEMzJZcXc0Sm1wX2FRU3NTY0lSdjluZ1lUVnlPYUZxNTdPYQ?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxNRG9sRm9tNDZGMVdoRk5BYnE4RUFHQTUyVE5uQWQxUko4XzhnRWpHT2w3dlIxczdiUjd1QUVTQ3ZrVjNXYjZFSmFDRjVRUnhkTjBFY2x3RlV2OTdWYVFsbWpFeWNWbm1yXzJiemR5bGRfUmRJd3pEMzJZcXc0Sm1wX2FRU3NTY0lSdjluZ1lUVnlPYUZxNTdPYQ?oc=5" class="event-title" title="Cyber tip leads to Forrest City arrest in child exploitation case - kait8.com" target="_blank">
                     Cyber tip leads to Forrest City arrest in child exploitation case - kait8.com
                 </a>
                 <div class="event-meta">
@@ -361,7 +360,7 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNX3ZBRVduYkRPUm1idU5MOHR2UjBmMHVDV09lSmFDeGU0NGhyWGpPVEcwMURDbVFpZGVQUDFiVFVOSzVfcW9hOXB3eUhWS0l6U3l0WDczQVkxRDRkZHp3SjVDOVI3UjZrX0ViV2VSc2RaOTFUZ2RuUlozYlFGeXNJMFZMd3g3dW11?oc=5" class="event-title" target="_blank">
+                <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNX3ZBRVduYkRPUm1idU5MOHR2UjBmMHVDV09lSmFDeGU0NGhyWGpPVEcwMURDbVFpZGVQUDFiVFVOSzVfcW9hOXB3eUhWS0l6U3l0WDczQVkxRDRkZHp3SjVDOVI3UjZrX0ViV2VSc2RaOTFUZ2RuUlozYlFGeXNJMFZMd3g3dW11?oc=5" class="event-title" title="Another Tanker Suffers Failure as Crew Suspect Cyber Attack - gCaptain" target="_blank">
                     Another Tanker Suffers Failure as Crew Suspect Cyber Attack - gCaptain
                 </a>
                 <div class="event-meta">
