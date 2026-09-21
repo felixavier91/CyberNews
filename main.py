@@ -391,8 +391,8 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
         f.write(complete_html)
 
 
-def main():
-    # Feed fetching and filtering
+def get_recent_entries() -> List[Dict]:
+    """Fetch, filter and sort the past week's cyber headlines (newest first)."""
     search = "Cyber"
     rss_url = f"https://news.google.com/news/feeds?q={search}&output=rss"
 
@@ -414,9 +414,11 @@ def main():
     recent_entries = sorted(recent_entries,
                             key=lambda entry: entry.published_parsed,
                             reverse=True)
+    return recent_entries
 
-    # Generate the static site
-    generate_html_page(recent_entries)
+
+def main():
+    generate_html_page(get_recent_entries())
 
 
 if __name__ == "__main__":
