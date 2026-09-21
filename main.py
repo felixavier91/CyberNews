@@ -238,11 +238,30 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
             }}
 
             .header h1 {{
+                display: flex;
+                align-items: center;
+                gap: 16px;
                 color: var(--text-dark);
                 margin: 0;
-                font-size: 2.5em;
-                font-weight: 700;
-                letter-spacing: -0.5px;
+                font-size: 3.2em;
+                font-weight: 900;
+                letter-spacing: -1.5px;
+                line-height: 1.1;
+            }}
+
+            .header h1 .logo {{
+                flex: 0 0 auto;
+                width: 1.1em;
+                height: 1.1em;
+                filter: drop-shadow(0 4px 6px rgba(156, 100, 12, 0.35));
+            }}
+
+            .header h1 .accent {{
+                background: linear-gradient(90deg, var(--primary-yellow), var(--dark-yellow));
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
             }}
 
             .event-list {{
@@ -254,8 +273,8 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                 display: flex;
                 align-items: center;
                 gap: 24px;
-                margin-bottom: 10px;
-                padding: 14px 20px;
+                margin-bottom: 0;
+                padding: 7px 20px;
                 border-bottom: 1px solid var(--border-light);
                 transition: all 0.2s ease;
                 border-radius: 6px;
@@ -269,7 +288,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
             .event-title {{
                 color: var(--text-dark);
                 text-decoration: none;
-                font-weight: 500;
+                font-weight: 400;
                 display: block;
                 flex: 1 1 auto;
                 min-width: 0;
@@ -288,8 +307,6 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                 color: var(--text-light);
                 flex: 0 0 auto;
                 white-space: nowrap;
-                padding-left: 12px;
-                border-left: 2px solid var(--primary-yellow);
             }}
 
             .last-updated {{
@@ -314,7 +331,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                     padding: 20px;
                 }}
                 .header h1 {{
-                    font-size: 2em;
+                    font-size: 2.2em;
                 }}
             }}
         </style>
@@ -322,7 +339,24 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
     <body>
         <div class="container">
             <div class="header">
-                <h1>This Week in Cyber</h1>
+                <h1>
+                    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="radar" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#F8C471"/>
+                                <stop offset="1" stop-color="#D68910"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="32" cy="32" r="28" fill="#FEF9E7" stroke="url(#radar)" stroke-width="4"/>
+                        <circle cx="32" cy="32" r="18" fill="none" stroke="url(#radar)" stroke-width="3" opacity="0.7"/>
+                        <circle cx="32" cy="32" r="8" fill="none" stroke="url(#radar)" stroke-width="3" opacity="0.5"/>
+                        <path d="M32 32 L32 4 A28 28 0 0 1 56.2 18 Z" fill="url(#radar)" opacity="0.45"/>
+                        <line x1="32" y1="32" x2="56.2" y2="18" stroke="#D68910" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="44" cy="22" r="4" fill="#C0392B"/>
+                        <circle cx="32" cy="32" r="3" fill="#9C640C"/>
+                    </svg>
+                    <span>This Week in <span class="accent">Cyber</span></span>
+                </h1>
                 <p class="last-updated">Last updated: {update_time}</p>
             </div>
             <ul class="event-list">

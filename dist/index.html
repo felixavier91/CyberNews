@@ -54,11 +54,30 @@
             }
 
             .header h1 {
+                display: flex;
+                align-items: center;
+                gap: 16px;
                 color: var(--text-dark);
                 margin: 0;
-                font-size: 2.5em;
-                font-weight: 700;
-                letter-spacing: -0.5px;
+                font-size: 3.2em;
+                font-weight: 900;
+                letter-spacing: -1.5px;
+                line-height: 1.1;
+            }
+
+            .header h1 .logo {
+                flex: 0 0 auto;
+                width: 1.1em;
+                height: 1.1em;
+                filter: drop-shadow(0 4px 6px rgba(156, 100, 12, 0.35));
+            }
+
+            .header h1 .accent {
+                background: linear-gradient(90deg, var(--primary-yellow), var(--dark-yellow));
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
             }
 
             .event-list {
@@ -70,8 +89,8 @@
                 display: flex;
                 align-items: center;
                 gap: 24px;
-                margin-bottom: 10px;
-                padding: 14px 20px;
+                margin-bottom: 0;
+                padding: 7px 20px;
                 border-bottom: 1px solid var(--border-light);
                 transition: all 0.2s ease;
                 border-radius: 6px;
@@ -85,7 +104,7 @@
             .event-title {
                 color: var(--text-dark);
                 text-decoration: none;
-                font-weight: 500;
+                font-weight: 400;
                 display: block;
                 flex: 1 1 auto;
                 min-width: 0;
@@ -104,8 +123,6 @@
                 color: var(--text-light);
                 flex: 0 0 auto;
                 white-space: nowrap;
-                padding-left: 12px;
-                border-left: 2px solid var(--primary-yellow);
             }
 
             .last-updated {
@@ -130,7 +147,7 @@
                     padding: 20px;
                 }
                 .header h1 {
-                    font-size: 2em;
+                    font-size: 2.2em;
                 }
             }
         </style>
@@ -138,8 +155,25 @@
     <body>
         <div class="container">
             <div class="header">
-                <h1>This Week in Cyber</h1>
-                <p class="last-updated">Last updated: 2026-09-21 08:33 </p>
+                <h1>
+                    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="radar" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#F8C471"/>
+                                <stop offset="1" stop-color="#D68910"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="32" cy="32" r="28" fill="#FEF9E7" stroke="url(#radar)" stroke-width="4"/>
+                        <circle cx="32" cy="32" r="18" fill="none" stroke="url(#radar)" stroke-width="3" opacity="0.7"/>
+                        <circle cx="32" cy="32" r="8" fill="none" stroke="url(#radar)" stroke-width="3" opacity="0.5"/>
+                        <path d="M32 32 L32 4 A28 28 0 0 1 56.2 18 Z" fill="url(#radar)" opacity="0.45"/>
+                        <line x1="32" y1="32" x2="56.2" y2="18" stroke="#D68910" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="44" cy="22" r="4" fill="#C0392B"/>
+                        <circle cx="32" cy="32" r="3" fill="#9C640C"/>
+                    </svg>
+                    <span>This Week in <span class="accent">Cyber</span></span>
+                </h1>
+                <p class="last-updated">Last updated: 2026-09-21 08:39 </p>
             </div>
             <ul class="event-list">
                 
@@ -189,15 +223,6 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNNlhfNzZkZ20wMmZ4LVk3OGdpaEZhTk9yUXBOWnB6ZzZ2c3BVYTRzYmNiS1NyX1NXV3VaLUlYbmdSUUxlbGtPN3JNN3BDNGp6ZHE4ekZmcHFzelZLQmMtYW5IX0ctMmhUSk10bkQ5Q1h6NGl0cWJMNDFsaFdJOFpqNFpva0pCZVJpVHFwZ2lfcTVOM3Qtd2J0b3VNREtRRE5WbEY5dElNVW96d2xLUHQ1X0VfNXUwT1o3WHI0aGdVOGloV21EV2dNdw?oc=5" class="event-title" title="Cybercrime feud erupts on dark web as notorious group claims hijack of rival&#x27;s website - Reuters" target="_blank">
-                    Cybercrime feud erupts on dark web as notorious group claims hijack of rival's website - Reuters
-                </a>
-                <div class="event-meta">
-                    2026-09-21 06:02 EST
-                </div>
-            </li>
-        
-            <li class="event-item">
                 <a href="https://news.google.com/rss/articles/CBMijAFBVV95cUxPcFBLZWl3aFAwRTg0R2pLQ3NxLTg1dUMzZ19fVThBOHlBTHYyRnFONWtzc0FsejhfWWk4MHpXSzdISm5KUlBVZk9OaVZuQTdWWXowWGMycXFIb0NaUUk3RTdzeTRWVGpUWE1HZnlrWjJWYzFCa2YzUjBWOHVncC1ORllNYTZTNVNHWDRwQw?oc=5" class="event-title" title="EU Cyber Resilience Act Reporting Rules Go Live As ENISA Launches Single Cyber Incident Platform - LinkedIn" target="_blank">
                     EU Cyber Resilience Act Reporting Rules Go Live As ENISA Launches Single Cyber Incident Platform - LinkedIn
                 </a>
@@ -243,17 +268,8 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMi-wFBVV95cUxPcHNpUTBvaWlRa3gxekp1dVVkNmVEYjRlTWJ6TldYeHpCX3BiaGF0bHNFUmxBSmxBMnZWMUNMQ0FoY0E2RkNPeFFMT2NVdmp4WEp4akIzT2R0d09IU2JHTVIwNE1POTlESHR6M0Z2MERFU1MwTGpNd09JYTlBUEp2VEZ6dzM4SmFha28yT19HaE1RSUlMRUFLUzVMa3R5XzNxWHcxMWVYSzY0Q1l4aUZvNzZwV1lQZGRUQmM3dUxwM2kwbkNxMzV5WXlPYjhtTGdBOC1McFA0ZXhSWkMxWW9ibjVpNGQtZTdXOGVGVGxMaGNybC1NMW9BLXE0SdIBgAJBVV95cUxNQzhIVXh1aFB4OWJ3TzBuNTl5TUVsaHJtYXRFckhHdGJ4TFRvTk9lb2pPMGNvYVlBSC1LTlNFZWJIaEMzdVVXbi1OZHFSVlVTdjhWUHdWQlEyVVVfVEV3dTJ6aldobERZZXVXbXhEZVB0VDE1SWpfUER3WGdMeXZuV2t6TnpaU1pEdnRoMEt1WGg1NjNWN0Nzb0FmMV9JNVllVmc3MHU3VkFXRWdIektyOGZvT0NiMm1yVXlIdmZpWjQzV0pwbHQzVDN4cGtFZTVKRFVjTkRKSWtBOHhXSHlLdFAtMWJXUjlzRjNTczZHeG9DWGxjWTVwM0g3QXI0bmk2?oc=5" class="event-title" title="‘Scary’: Aus hacker exposes BYD security flaw - News.com.au" target="_blank">
-                    ‘Scary’: Aus hacker exposes BYD security flaw - News.com.au
-                </a>
-                <div class="event-meta">
-                    2026-09-21 02:56 EST
-                </div>
-            </li>
-        
-            <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxQS0tUZFprbjJkbm5TUkJEcTNZRThMUllvQzk5OXZyTmxEYjJmNGJ6VVVLU2I4dmRsTV9NSzd6UHFxZ013RXJLWVRoblNpYnRBZEhpQXpXWTVxa2p2NDNTWTFSa3loME1jZTk3eDdTUXE3RFJGdEs0Q0U5bjVQblE5S1hqcEgtdWhSOFk3SC1YVGJkUDFkOVpIajZVN3BGZDBqR3JSY2lET01waWcxN1c0SlVZV3MwNXhmcFV1YzBUUndkdVhZRkVmOHdyOA?oc=5" class="event-title" title="ShinyHunters allegedly launches Cyber Attack on Clop Ransomware Group leading to Data Theft - Cybersecurity Insiders" target="_blank">
-                    ShinyHunters allegedly launches Cyber Attack on Clop Ransomware Group leading to Data Theft - Cybersecurity Insiders
+                <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxQS0tUZFprbjJkbm5TUkJEcTNZRThMUllvQzk5OXZyTmxEYjJmNGJ6VVVLU2I4dmRsTV9NSzd6UHFxZ013RXJLWVRoblNpYnRBZEhpQXpXWTVxa2p2NDNTWTFSa3loME1jZTk3eDdTUXE3RFJGdEs0Q0U5bjVQblE5S1hqcEgtdWhSOFk3SC1YVGJkUDFkOVpIajZVN3BGZDBqR3JSY2lET01waWcxN1c0SlVZV3MwNXhmcFV1YzBUUndkdVhZRkVmOHdyOA?oc=5" class="event-title" title="ShinyHunters allegedly launches Cyber Attack on Clop Ransomware Group leading to Data Theft - cybersecurity-insiders.com" target="_blank">
+                    ShinyHunters allegedly launches Cyber Attack on Clop Ransomware Group leading to Data Theft - cybersecurity-insiders.com
                 </a>
                 <div class="event-meta">
                     2026-09-21 02:04 EST
@@ -284,6 +300,15 @@
                 </a>
                 <div class="event-meta">
                     2026-09-20 22:38 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNNlhfNzZkZ20wMmZ4LVk3OGdpaEZhTk9yUXBOWnB6ZzZ2c3BVYTRzYmNiS1NyX1NXV3VaLUlYbmdSUUxlbGtPN3JNN3BDNGp6ZHE4ekZmcHFzelZLQmMtYW5IX0ctMmhUSk10bkQ5Q1h6NGl0cWJMNDFsaFdJOFpqNFpva0pCZVJpVHFwZ2lfcTVOM3Qtd2J0b3VNREtRRE5WbEY5dElNVW96d2xLUHQ1X0VfNXUwT1o3WHI0aGdVOGloV21EV2dNdw?oc=5" class="event-title" title="Cybercrime feud erupts on dark web as notorious group claims hijack of rival&#x27;s website - Reuters" target="_blank">
+                    Cybercrime feud erupts on dark web as notorious group claims hijack of rival's website - Reuters
+                </a>
+                <div class="event-meta">
+                    2026-09-20 21:58 EST
                 </div>
             </li>
         
@@ -342,6 +367,15 @@
             </li>
         
             <li class="event-item">
+                <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxQWGtnN0RleDR6YXZoU2NxLW5Qa1FBeFp6WkxIWW5oaWZob0Y5NzdScVAxcXVMUG42OEdNdzlxLUtENHlFRGp5Mlc4U1g3YTctdDBZLVZCRDZmZ3F6UnZhanRLTFhlSjNua3VKVkM5ZUtBdmlVZ0E1UVRJNUFRMC1odklpOGPSAYoBQVVfeXFMT0R1clExQ2psaGdvQndXbk8teTJuUVhXZ1BkVVJ5cms1RndsVEllcWwySkR0YUczSVlXa21OVER3b2QyM0VOSERnVjE0YVItcFU4WEoyS0owZzR4eWtJQUF6eVdsanY3U0UtREhFTThNdkNsYUtQY0ZaQlpxTU9KYWhPeURVd0pjSDZR?oc=5" class="event-title" title="CISA Warns of Linux Kernel Vulnerabilities Actively Exploited in Attacks - CyberSecurityNews" target="_blank">
+                    CISA Warns of Linux Kernel Vulnerabilities Actively Exploited in Attacks - CyberSecurityNews
+                </a>
+                <div class="event-meta">
+                    2026-09-19 11:09 EST
+                </div>
+            </li>
+        
+            <li class="event-item">
                 <a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE9xQ25WNU1mQW41eU9JajRkSzl3M3NNSVJ3dVM4TmRzZTByWm84clhCYWpXZzJuTGE0LWpBUERxWXNuQVhiSHhabGlBOGFrWVZNaVA0U21nbExmOW8?oc=5" class="event-title" title="Google&#x27;s Gemini AI hacked three companies in security test - BBC" target="_blank">
                     Google's Gemini AI hacked three companies in security test - BBC
                 </a>
@@ -351,20 +385,11 @@
             </li>
         
             <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxPX0JhTE9aZU1IUkRrcDRwSTBwVmpQMkR2WGpFSWxpOHR3Sy0yVU1DOTBSMFB5Q0lOUEpCN0pnajJYeHk3Yk9fOEZ3N1huUlgwd2Q3UzlGZVBiUzBwaXV6aEdEWXlZTTJCOUJGZ1FmaWlKNkR0RFJNaElwNERRd1NDcjRzVEV0X1JfY3MtTS1UWnFTa3M2WU5mS0tvRS0?oc=5" class="event-title" title="3 Cyber Insurance Stocks Retail Investors May Want To Watch After Gemini Hacking News - finance.yahoo.com" target="_blank">
-                    3 Cyber Insurance Stocks Retail Investors May Want To Watch After Gemini Hacking News - finance.yahoo.com
+                <a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxPX0JhTE9aZU1IUkRrcDRwSTBwVmpQMkR2WGpFSWxpOHR3Sy0yVU1DOTBSMFB5Q0lOUEpCN0pnajJYeHk3Yk9fOEZ3N1huUlgwd2Q3UzlGZVBiUzBwaXV6aEdEWXlZTTJCOUJGZ1FmaWlKNkR0RFJNaElwNERRd1NDcjRzVEV0X1JfY3MtTS1UWnFTa3M2WU5mS0tvRS0?oc=5" class="event-title" title="3 Cyber Insurance Stocks Retail Investors May Want To Watch After Gemini Hacking News - Yahoo Finance" target="_blank">
+                    3 Cyber Insurance Stocks Retail Investors May Want To Watch After Gemini Hacking News - Yahoo Finance
                 </a>
                 <div class="event-meta">
                     2026-09-19 01:14 EST
-                </div>
-            </li>
-        
-            <li class="event-item">
-                <a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxNRG9sRm9tNDZGMVdoRk5BYnE4RUFHQTUyVE5uQWQxUko4XzhnRWpHT2w3dlIxczdiUjd1QUVTQ3ZrVjNXYjZFSmFDRjVRUnhkTjBFY2x3RlV2OTdWYVFsbWpFeWNWbm1yXzJiemR5bGRfUmRJd3pEMzJZcXc0Sm1wX2FRU3NTY0lSdjluZ1lUVnlPYUZxNTdPYQ?oc=5" class="event-title" title="Cyber tip leads to Forrest City arrest in child exploitation case - K8 News | Jonesboro, Arkansas" target="_blank">
-                    Cyber tip leads to Forrest City arrest in child exploitation case - K8 News | Jonesboro, Arkansas
-                </a>
-                <div class="event-meta">
-                    2026-09-18 17:07 EST
                 </div>
             </li>
         
