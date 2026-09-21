@@ -47,7 +47,6 @@ def build_email(entries, site_url: str):
     <a href="{html.escape(site_url)}" style="color:#9C640C;">View on the website</a>
   </p>
   <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;">{rows}</table>
-  <p style="margin-top:20px;"><a href="{html.escape(site_url)}" style="color:#9C640C;">{html.escape(site_url)}</a></p>
 </body></html>"""
 
     text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
