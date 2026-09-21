@@ -95,17 +95,28 @@ def main():
     sent_at = datetime.now(pytz.timezone("US/Eastern"))
     msg["Subject"] = f"This Week in Cyber - {sent_at.strftime('%m-%d %H:%M')} ET"
     msg["From"] = os.environ["EMAIL_FROM"]
-    msg["To"] = ", ".join(recipients)
     msg.set_content(text_body)
     msg.add_alternative(html_body, subtype="html")
 
     host = os.environ.get("SMTP_HOST") or "smtp.resend.com"
     port = int(os.environ.get("SMTP_PORT") or "587")
+    sent, failed = 0, []
     with smtplib.SMTP(host, port) as smtp:
         smtp.starttls()
         smtp.login(user, os.environ["SMTP_PASSWORD"])
-        smtp.send_message(msg)
-    print(f"Sent to {len(recipients)} recipient(s).")
+        # One copy per person, so recipients never see each other's addresses.
+        # A failure for one address doesn't stop the others.
+        for recipient in recipients:
+            try:
+                del msg["To"]
+                msg["To"] = recipient
+                smtp.send_message(msg)
+                sent += 1
+            except Exception as exc:
+                failed.append(recipient)
+                print(f"Failed to send to {recipient}: {exc}")
+    print(f"Sent to {sent} of {len(recipients)} recipient(s).")
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
