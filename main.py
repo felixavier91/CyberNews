@@ -173,6 +173,20 @@ def filter_headline(headline):
     return any(keyword.lower() in str(headline).lower() for keyword in keywords)
 
 
+def clean_title(entry) -> str:
+    """Headline without the trailing ' - Source Name' Google News appends."""
+    title = entry.title
+    source = ""
+    if isinstance(entry.get("source"), dict):
+        source = entry["source"].get("title", "")
+    if source and title.endswith(f" - {source}"):
+        title = title[: -len(f" - {source}")]
+        # e.g. "... By Investing.com - Investing.com" -> "..."
+        if title.endswith(f" By {source}"):
+            title = title[: -len(f" By {source}")]
+    return title.strip()
+
+
 def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
     """
     Generate a complete HTML page with the cyber events list.
@@ -372,8 +386,8 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
         published_time = convert_entry_published_gmt_to_est(entry.published)
         events_html += f"""
             <li class="event-item">
-                <a href="{entry.link}" class="event-title" title="{html.escape(entry.title)}" target="_blank">
-                    {entry.title}
+                <a href="{entry.link}" class="event-title" target="_blank">
+                    {html.escape(clean_title(entry))}
                 </a>
                 <div class="event-meta">
                     {published_time}

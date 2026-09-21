@@ -21,21 +21,7 @@ from email.message import EmailMessage
 
 import pytz
 
-from main import convert_entry_published_gmt_to_est, get_recent_entries
-
-
-def clean_title(entry) -> str:
-    """Headline without the trailing ' - Source Name' Google News appends."""
-    title = entry.title
-    source = ""
-    if isinstance(entry.get("source"), dict):
-        source = entry["source"].get("title", "")
-    if source and title.endswith(f" - {source}"):
-        title = title[: -len(f" - {source}")]
-        # e.g. "... By Investing.com - Investing.com" -> "..."
-        if title.endswith(f" By {source}"):
-            title = title[: -len(f" By {source}")]
-    return title.strip()
+from main import clean_title, convert_entry_published_gmt_to_est, get_recent_entries
 
 
 def build_email(entries, site_url: str):
@@ -46,7 +32,7 @@ def build_email(entries, site_url: str):
             "<tr>"
             '<td style="padding:7px 12px 7px 0;border-bottom:1px solid #eee;'
             'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'
-            f'<a href="{html.escape(entry.link)}" title="{title}" '
+            f'<a href="{html.escape(entry.link)}" '
             f'style="color:#2C3E50;text-decoration:none;">{title}</a></td>'
             '<td style="width:135px;padding:7px 0;border-bottom:1px solid #eee;'
             'white-space:nowrap;text-align:right;font-size:12px;color:#888;">'
