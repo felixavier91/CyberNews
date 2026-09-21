@@ -8,11 +8,16 @@ on:
     - cron: '0 13 * * *'
   workflow_dispatch:      # manual test run (skips the 8AM check)
 
+permissions:
+  contents: write         # lets the refresh step commit the updated website page
+
 jobs:
   email:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v4
         with:
@@ -23,6 +28,35 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      # Scheduled runs fire at two UTC times; only the one at 8AM Eastern should
+      # refresh the site. Manual runs always do.
+      - name: Check whether this run should send
+        id: gate
+        run: |
+          if [[ "${{ github.event_name }}" != "schedule" || "$(TZ=America/New_York date +%H)" == "08" ]]; then
+            echo "go=true" >> $GITHUB_OUTPUT
+          else
+            echo "go=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Refresh the website first so it matches the email. If this step fails,
+      # the email is still sent.
+      - name: Refresh website
+        if: steps.gate.outputs.go == 'true'
+        continue-on-error: true
+        run: |
+          python main.py
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions Bot"
+          if [[ -n "$(git status --porcelain dist/)" ]]; then
+            git add dist/
+            git commit -m "Update This Week in Cyber feed before email - $(date +'%Y-%m-%d %H:%M:%S')"
+            git pull --rebase
+            git push
+          fi
+        env:
+          TZ: 'America/New_York'
 
       - name: Send email
         run: python send_email.py
