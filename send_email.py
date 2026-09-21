@@ -14,7 +14,6 @@ Settings come from environment variables:
 """
 import html
 import os
-import re
 import smtplib
 import sys
 from datetime import datetime
@@ -25,50 +24,16 @@ import pytz
 from main import convert_entry_published_gmt_to_est, get_recent_entries
 
 
-def resolve_link(link: str) -> str:
-    """Turn a Google News redirect link into the publisher's real article URL.
-
-    Mail filters distrust redirect links, so the email links straight to the
-    article. Falls back to the original link if decoding fails.
-    """
-    if "news.google.com" not in link:
-        return link
-    try:
-        from googlenewsdecoder import gnewsdecoder
-        return gnewsdecoder(link, interval=1).get("decoded_url") or link
-    except Exception as exc:
-        print(f"Could not resolve {link[:60]}...: {exc}")
-        return link
-
-
-def defang(text: str) -> str:
-    """Stop mail clients auto-linking address-like text such as 'digit.fyi'.
-
-    An invisible zero-width space after each dot in a word looks identical
-    but prevents the text from being recognised as a web address.
-    """
-    return re.sub(r"(?<=\w)\.(?=\w{2,})", ".​", text)
-
-
-def build_email(entries, site_url: str, links=None):
-    """links maps entry.link -> article URL. When None, headlines are plain text."""
-    link_for = lambda e: links.get(e.link, e.link)
-
+def build_email(entries, site_url: str):
     rows = ""
     for entry in entries:
-        title = html.escape(defang(entry.title))
-        if links is None:
-            headline = f'<span title="{title}" style="color:#2C3E50;">{title}</span>'
-        else:
-            headline = (
-                f'<a href="{html.escape(link_for(entry))}" title="{title}" '
-                f'style="color:#2C3E50;text-decoration:none;">{title}</a>'
-            )
+        title = html.escape(entry.title)
         rows += (
             "<tr>"
             '<td style="padding:7px 12px 7px 0;border-bottom:1px solid #eee;'
             'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'
-            f"{headline}</td>"
+            f'<a href="{html.escape(entry.link)}" title="{title}" '
+            f'style="color:#2C3E50;text-decoration:none;">{title}</a></td>'
             '<td style="width:135px;padding:7px 0;border-bottom:1px solid #eee;'
             'white-space:nowrap;text-align:right;font-size:12px;color:#888;">'
             f"{convert_entry_published_gmt_to_est(entry.published)}</td>"
@@ -84,14 +49,9 @@ def build_email(entries, site_url: str, links=None):
   <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;">{rows}</table>
 </body></html>"""
 
-    if links is None:
-        text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n".join(
-            defang(e.title) for e in entries
-        )
-    else:
-        text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
-            f"{e.title}\n{link_for(e)}" for e in entries
-        )
+    text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
+        f"{e.title}\n{e.link}" for e in entries
+    )
     return html_body, text_body
 
 
@@ -109,12 +69,7 @@ def main():
         print("No entries found; not sending.")
         return
 
-    # Set HEADLINE_LINKS=1 to link each headline to its article.
-    links = None
-    if os.environ.get("HEADLINE_LINKS") == "1":
-        links = {e.link: resolve_link(e.link) for e in entries}
-        print(f"Resolved {sum(1 for k, v in links.items() if k != v)}/{len(links)} links.")
-    html_body, text_body = build_email(entries, site_url, links)
+    html_body, text_body = build_email(entries, site_url)
 
     if os.environ.get("DRY_RUN"):
         with open("email_preview.html", "w", encoding="utf-8") as f:
