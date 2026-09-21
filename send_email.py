@@ -24,10 +24,24 @@ import pytz
 from main import convert_entry_published_gmt_to_est, get_recent_entries
 
 
+def clean_title(entry) -> str:
+    """Headline without the trailing ' - Source Name' Google News appends."""
+    title = entry.title
+    source = ""
+    if isinstance(entry.get("source"), dict):
+        source = entry["source"].get("title", "")
+    if source and title.endswith(f" - {source}"):
+        title = title[: -len(f" - {source}")]
+        # e.g. "... By Investing.com - Investing.com" -> "..."
+        if title.endswith(f" By {source}"):
+            title = title[: -len(f" By {source}")]
+    return title.strip()
+
+
 def build_email(entries, site_url: str):
     rows = ""
     for entry in entries:
-        title = html.escape(entry.title)
+        title = html.escape(clean_title(entry))
         rows += (
             "<tr>"
             '<td style="padding:7px 12px 7px 0;border-bottom:1px solid #eee;'
@@ -47,7 +61,7 @@ def build_email(entries, site_url: str):
 </body></html>"""
 
     text_body = "This Week in Cyber\n\n" + "\n\n".join(
-        f"{e.title}\n{e.link}" for e in entries
+        f"{clean_title(e)}\n{e.link}" for e in entries
     )
     return html_body, text_body
 
