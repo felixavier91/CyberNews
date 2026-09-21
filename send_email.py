@@ -14,6 +14,7 @@ Settings come from environment variables:
 """
 import html
 import os
+import re
 import smtplib
 import sys
 from datetime import datetime
@@ -40,13 +41,22 @@ def resolve_link(link: str) -> str:
         return link
 
 
+def defang(text: str) -> str:
+    """Stop mail clients auto-linking address-like text such as 'digit.fyi'.
+
+    An invisible zero-width space after each dot in a word looks identical
+    but prevents the text from being recognised as a web address.
+    """
+    return re.sub(r"(?<=\w)\.(?=\w{2,})", ".​", text)
+
+
 def build_email(entries, site_url: str, links=None):
     """links maps entry.link -> article URL. When None, headlines are plain text."""
     link_for = lambda e: links.get(e.link, e.link)
 
     rows = ""
     for entry in entries:
-        title = html.escape(entry.title)
+        title = html.escape(defang(entry.title))
         if links is None:
             headline = f'<span title="{title}" style="color:#2C3E50;">{title}</span>'
         else:
@@ -76,7 +86,7 @@ def build_email(entries, site_url: str, links=None):
 
     if links is None:
         text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n".join(
-            e.title for e in entries
+            defang(e.title) for e in entries
         )
     else:
         text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
