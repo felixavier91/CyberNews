@@ -78,7 +78,8 @@ def main():
     recipients = [r.strip() for r in os.environ["EMAIL_TO"].split(",") if r.strip()]
 
     msg = EmailMessage()
-    msg["Subject"] = f"This Week in Cyber - {datetime.now().strftime('%m-%d')}"
+    sent_at = datetime.now(pytz.timezone("US/Eastern"))
+    msg["Subject"] = f"This Week in Cyber - {sent_at.strftime('%m-%d %H:%M')} ET"
     msg["From"] = os.environ["EMAIL_FROM"]
     msg["To"] = ", ".join(recipients)
     msg.set_content(text_body)
