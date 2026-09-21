@@ -42,14 +42,11 @@ def build_email(entries, site_url: str):
 
     html_body = f"""\
 <html><body style="font-family:Segoe UI,Arial,sans-serif;color:#2C3E50;max-width:1000px;margin:auto;">
-  <h1 style="margin-bottom:4px;">This Week in <span style="color:#D68910;">Cyber</span></h1>
-  <p style="margin-top:0;">
-    <a href="{html.escape(site_url)}" style="color:#9C640C;">View on the website</a>
-  </p>
+  <h1 style="margin-bottom:16px;">This Week in <span style="color:#D68910;">Cyber</span></h1>
   <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;">{rows}</table>
 </body></html>"""
 
-    text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
+    text_body = "This Week in Cyber\n\n" + "\n\n".join(
         f"{e.title}\n{e.link}" for e in entries
     )
     return html_body, text_body
