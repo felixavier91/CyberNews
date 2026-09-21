@@ -2,11 +2,12 @@ name: Daily Cyber Email
 
 on:
   schedule:
-    # 8AM US/Eastern is 12:00 UTC in summer (EDT) and 13:00 UTC in winter (EST).
-    # Run at both; send_email.py only sends when the Eastern hour is 8.
-    - cron: '0 12 * * *'
-    - cron: '0 13 * * *'
-  workflow_dispatch:      # manual test run (skips the 8AM check)
+    # Starts at 7:50AM US/Eastern: 11:50 UTC in summer (EDT), 12:50 UTC in winter (EST).
+    # Both are scheduled; the gate step below lets only the right one continue.
+    # The job does its prep first, then waits until 8:00AM Eastern to send.
+    - cron: '50 11 * * *'
+    - cron: '50 12 * * *'
+  workflow_dispatch:      # manual test run (sends immediately, no waiting)
 
 permissions:
   contents: write         # lets the refresh step commit the updated website page
@@ -29,19 +30,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Scheduled runs fire at two UTC times; only the one at 8AM Eastern should
-      # refresh the site. Manual runs always do.
+      # Scheduled runs: continue only if the Eastern clock reads 7:20-8:40AM, so
+      # exactly one of the two cron entries goes ahead (allows for GitHub start
+      # delays; a late start still sends, just later). Manual runs always continue.
       - name: Check whether this run should send
         id: gate
         run: |
-          if [[ "${{ github.event_name }}" != "schedule" || "$(TZ=America/New_York date +%H)" == "08" ]]; then
+          h=$(TZ=America/New_York date +%H); m=$(TZ=America/New_York date +%M)
+          mins=$((10#$h * 60 + 10#$m))
+          echo "Eastern time is $h:$m"
+          if [[ "${{ github.event_name }}" != "schedule" ]] || (( mins >= 440 && mins < 520 )); then
             echo "go=true" >> $GITHUB_OUTPUT
           else
             echo "go=false" >> $GITHUB_OUTPUT
           fi
 
-      # Refresh the website first so it matches the email. If this step fails,
-      # the email is still sent.
+      # Prep 1: refresh the website with the latest news, before the email.
+      # If this step fails, the email is still sent.
       - name: Refresh website
         if: steps.gate.outputs.go == 'true'
         continue-on-error: true
@@ -58,7 +63,24 @@ jobs:
         env:
           TZ: 'America/New_York'
 
+      # Prep 2: wait until just before 8:00AM Eastern (5 seconds early, so the
+      # feed fetch and mail hand-off land at 8:00). If it's already past that
+      # time because of a late start, this does nothing and the email goes now.
+      - name: Wait until 8:00AM Eastern
+        if: steps.gate.outputs.go == 'true' && github.event_name == 'schedule'
+        run: |
+          target=$(( $(TZ=America/New_York date -d "08:00" +%s) - 5 ))
+          now=$(date +%s)
+          if (( now < target )); then
+            echo "Waiting $((target - now))s until 8:00AM Eastern"
+            sleep $((target - now))
+          else
+            echo "Already past 8:00AM Eastern; sending now"
+          fi
+
+      # Fetches the news again at send time, so the email has the very latest.
       - name: Send email
+        if: steps.gate.outputs.go == 'true'
         run: python send_email.py
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
@@ -67,5 +89,3 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           SITE_URL: ${{ secrets.SITE_URL }}
-          # Only enforce the 8AM check on scheduled runs
-          ONLY_AT_HOUR: ${{ github.event_name == 'schedule' && '8' || '' }}
