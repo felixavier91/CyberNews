@@ -27,22 +27,26 @@ from main import convert_entry_published_gmt_to_est, get_recent_entries
 def build_email(entries, site_url: str):
     rows = ""
     for entry in entries:
+        title = html.escape(entry.title)
         rows += (
-            '<tr><td style="padding:6px 0;border-bottom:1px solid #eee;">'
-            f'<a href="{html.escape(entry.link)}" style="color:#2C3E50;text-decoration:none;">'
-            f"{html.escape(entry.title)}</a>"
-            '<div style="font-size:12px;color:#888;">'
-            f"{convert_entry_published_gmt_to_est(entry.published)}</div>"
-            "</td></tr>"
+            "<tr>"
+            '<td style="padding:7px 12px 7px 0;border-bottom:1px solid #eee;'
+            'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'
+            f'<a href="{html.escape(entry.link)}" title="{title}" '
+            f'style="color:#2C3E50;text-decoration:none;">{title}</a></td>'
+            '<td style="width:135px;padding:7px 0;border-bottom:1px solid #eee;'
+            'white-space:nowrap;text-align:right;font-size:12px;color:#888;">'
+            f"{convert_entry_published_gmt_to_est(entry.published)}</td>"
+            "</tr>"
         )
 
     html_body = f"""\
-<html><body style="font-family:Segoe UI,Arial,sans-serif;color:#2C3E50;max-width:800px;margin:auto;">
+<html><body style="font-family:Segoe UI,Arial,sans-serif;color:#2C3E50;max-width:1000px;margin:auto;">
   <h1 style="margin-bottom:4px;">This Week in <span style="color:#D68910;">Cyber</span></h1>
   <p style="margin-top:0;">
     <a href="{html.escape(site_url)}" style="color:#9C640C;">View on the website</a>
   </p>
-  <table style="width:100%;border-collapse:collapse;font-size:15px;">{rows}</table>
+  <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;">{rows}</table>
   <p style="margin-top:20px;"><a href="{html.escape(site_url)}" style="color:#9C640C;">{html.escape(site_url)}</a></p>
 </body></html>"""
 
@@ -78,7 +82,7 @@ def main():
     recipients = [r.strip() for r in os.environ["EMAIL_TO"].split(",") if r.strip()]
 
     msg = EmailMessage()
-    msg["Subject"] = f"This Week in Cyber - {datetime.now().strftime('%Y-%m-%d')}"
+    msg["Subject"] = f"This Week in Cyber - {datetime.now().strftime('%m-%d')}"
     msg["From"] = os.environ["EMAIL_FROM"]
     msg["To"] = ", ".join(recipients)
     msg.set_content(text_body)

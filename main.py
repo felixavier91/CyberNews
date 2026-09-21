@@ -141,7 +141,7 @@ def convert_entry_published_gmt_to_est(entry_published):
     date = datetime.strptime(entry_published, '%a, %d %b %Y %H:%M:%S GMT')
     dategmt = gmt.localize(date)
     dateeastern = dategmt.astimezone(eastern)
-    fmt = "%Y-%m-%d %H:%M EST"
+    fmt = "%m-%d %H:%M EST"
     dateeastern_formatted = dateeastern.strftime(fmt)
     return dateeastern_formatted
 
@@ -382,7 +382,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
         """
 
     complete_html = html_template.format(
-        update_time=datetime.now().strftime("%Y-%m-%d %H:%M %Z"),
+        update_time=datetime.now().strftime("%m-%d %H:%M %Z"),
         events_html=events_html
     )
 
