@@ -24,7 +24,26 @@ import pytz
 from main import convert_entry_published_gmt_to_est, get_recent_entries
 
 
-def build_email(entries, site_url: str):
+def resolve_link(link: str) -> str:
+    """Turn a Google News redirect link into the publisher's real article URL.
+
+    Mail filters distrust redirect links, so the email links straight to the
+    article. Falls back to the original link if decoding fails.
+    """
+    if "news.google.com" not in link:
+        return link
+    try:
+        from googlenewsdecoder import gnewsdecoder
+        return gnewsdecoder(link, interval=1).get("decoded_url") or link
+    except Exception as exc:
+        print(f"Could not resolve {link[:60]}...: {exc}")
+        return link
+
+
+def build_email(entries, site_url: str, links=None):
+    links = links or {}
+    link_for = lambda e: links.get(e.link, e.link)
+
     rows = ""
     for entry in entries:
         title = html.escape(entry.title)
@@ -32,7 +51,7 @@ def build_email(entries, site_url: str):
             "<tr>"
             '<td style="padding:7px 12px 7px 0;border-bottom:1px solid #eee;'
             'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'
-            f'<a href="{html.escape(entry.link)}" title="{title}" '
+            f'<a href="{html.escape(link_for(entry))}" title="{title}" '
             f'style="color:#2C3E50;text-decoration:none;">{title}</a></td>'
             '<td style="width:135px;padding:7px 0;border-bottom:1px solid #eee;'
             'white-space:nowrap;text-align:right;font-size:12px;color:#888;">'
@@ -50,7 +69,7 @@ def build_email(entries, site_url: str):
 </body></html>"""
 
     text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
-        f"{e.title}\n{e.link}" for e in entries
+        f"{e.title}\n{link_for(e)}" for e in entries
     )
     return html_body, text_body
 
@@ -69,7 +88,9 @@ def main():
         print("No entries found; not sending.")
         return
 
-    html_body, text_body = build_email(entries, site_url)
+    links = {e.link: resolve_link(e.link) for e in entries}
+    print(f"Resolved {sum(1 for k, v in links.items() if k != v)}/{len(links)} links.")
+    html_body, text_body = build_email(entries, site_url, links)
 
     if os.environ.get("DRY_RUN"):
         with open("email_preview.html", "w", encoding="utf-8") as f:
