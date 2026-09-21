@@ -41,18 +41,24 @@ def resolve_link(link: str) -> str:
 
 
 def build_email(entries, site_url: str, links=None):
-    links = links or {}
+    """links maps entry.link -> article URL. When None, headlines are plain text."""
     link_for = lambda e: links.get(e.link, e.link)
 
     rows = ""
     for entry in entries:
         title = html.escape(entry.title)
+        if links is None:
+            headline = f'<span title="{title}" style="color:#2C3E50;">{title}</span>'
+        else:
+            headline = (
+                f'<a href="{html.escape(link_for(entry))}" title="{title}" '
+                f'style="color:#2C3E50;text-decoration:none;">{title}</a>'
+            )
         rows += (
             "<tr>"
             '<td style="padding:7px 12px 7px 0;border-bottom:1px solid #eee;'
             'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'
-            f'<a href="{html.escape(link_for(entry))}" title="{title}" '
-            f'style="color:#2C3E50;text-decoration:none;">{title}</a></td>'
+            f"{headline}</td>"
             '<td style="width:135px;padding:7px 0;border-bottom:1px solid #eee;'
             'white-space:nowrap;text-align:right;font-size:12px;color:#888;">'
             f"{convert_entry_published_gmt_to_est(entry.published)}</td>"
@@ -68,9 +74,14 @@ def build_email(entries, site_url: str, links=None):
   <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;">{rows}</table>
 </body></html>"""
 
-    text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
-        f"{e.title}\n{link_for(e)}" for e in entries
-    )
+    if links is None:
+        text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n".join(
+            e.title for e in entries
+        )
+    else:
+        text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
+            f"{e.title}\n{link_for(e)}" for e in entries
+        )
     return html_body, text_body
 
 
@@ -88,8 +99,11 @@ def main():
         print("No entries found; not sending.")
         return
 
-    links = {e.link: resolve_link(e.link) for e in entries}
-    print(f"Resolved {sum(1 for k, v in links.items() if k != v)}/{len(links)} links.")
+    # Set HEADLINE_LINKS=1 to link each headline to its article.
+    links = None
+    if os.environ.get("HEADLINE_LINKS") == "1":
+        links = {e.link: resolve_link(e.link) for e in entries}
+        print(f"Resolved {sum(1 for k, v in links.items() if k != v)}/{len(links)} links.")
     html_body, text_body = build_email(entries, site_url, links)
 
     if os.environ.get("DRY_RUN"):
