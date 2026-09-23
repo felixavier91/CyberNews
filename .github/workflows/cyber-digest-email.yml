@@ -2,7 +2,7 @@ name: Cyber Digest Email
 
 on:
   schedule:
-    - cron: '*/10 * * * *'   # reliability test - see conversation for the real schedule to move to
+    - cron: '*/15 * * * *'   # reliability test - see conversation for the real schedule to move to
   workflow_dispatch:         # manual test run
 
 permissions:
