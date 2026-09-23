@@ -1,9 +1,11 @@
 name: Cyber Digest Email
 
 on:
-  schedule:
-    - cron: '*/15 * * * *'   # reliability test - see conversation for the real schedule to move to
-  workflow_dispatch:         # manual test run
+  # No schedule here - its own cron never fired once across every test tried
+  # (fresh workflow ID, public repo, 10/15-min intervals). The daily email now
+  # piggybacks on update-feed.yml's schedule instead, which is proven reliable.
+  # This workflow stays around as a manual on-demand sender only.
+  workflow_dispatch:
 
 permissions:
   contents: write         # lets the refresh step commit the updated website page

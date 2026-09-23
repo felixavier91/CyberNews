@@ -65,3 +65,33 @@ jobs:
           git add dist/
           git commit -m "Update This Week in Cyber feed - $(date +'%Y-%m-%d %H:%M:%S')"
           git push
+
+      # Step 8: This workflow's schedule is the one that's proven reliable
+      # (the separate Cyber Digest Email workflow's own schedule never fired,
+      # across many tests). So the daily email piggybacks on this run instead.
+      # Of the 4 daily ticks (00/06/12/18 UTC), 12:00 UTC lands at 8AM EDT /
+      # 7AM EST (morning) and 18:00 UTC lands at 2PM EDT / 1PM EST (afternoon)
+      # - this only fires on those two, and only for genuine schedule runs
+      # (not the push-triggered runs from every commit to main).
+      - name: Check whether this is a morning or afternoon run
+        id: email_gate
+        if: github.event_name == 'schedule'
+        run: |
+          h=$(TZ=America/New_York date +%H)
+          echo "Eastern hour is $h"
+          if [[ "$h" == "07" || "$h" == "08" || "$h" == "13" || "$h" == "14" ]]; then
+            echo "send=true" >> $GITHUB_OUTPUT
+          else
+            echo "send=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send digest email
+        if: github.event_name == 'schedule' && steps.email_gate.outputs.send == 'true'
+        run: python send_email.py
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          SITE_URL: ${{ secrets.SITE_URL }}
