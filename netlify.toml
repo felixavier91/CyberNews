@@ -7,5 +7,7 @@
 [build.environment]
   PYTHON_VERSION = "3.10.6"  # Updated to match your local environment
   TZ = "America/New_York"
+  MISE_PYTHON_GITHUB_ATTESTATIONS = "false"  # Skip verifying Python's build against GitHub's
+    # attestation service - that service returned 503 (unrelated GitHub outage) and failed the build
 
 # Rest of the netlify.toml remains the same...
