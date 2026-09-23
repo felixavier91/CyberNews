@@ -2,18 +2,11 @@ name: Daily Cyber Email
 
 on:
   schedule:
-    # TEMPORARY RELIABILITY TEST (2026-09-23): every 10 minutes, to get many
-    # real data points on whether GitHub's own scheduler fires this workflow
-    # reliably, fast. Revert to the real schedule (see below) once confirmed.
-    - cron: '*/10 * * * *'
-    # Real schedule, restore this after the test:
-    # - cron: '30 12 * * *'   # 8:30AM EDT (summer)
-    # - cron: '30 13 * * *'   # 8:30AM EST (winter)
-  workflow_dispatch:        # manual test run (sends immediately)
+    - cron: '*/10 * * * *'   # reliability test - see conversation for the real schedule to move to
+  workflow_dispatch:         # manual test run
 
 permissions:
   contents: write         # lets the refresh step commit the updated website page
-  actions: read           # lets the dedupe step look at this workflow's past runs
 
 jobs:
   email:
@@ -33,38 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # TEMPORARY: gate is always true during the reliability test, so every
-      # real firing is visible in the run log regardless of time of day.
-      # Restore the time-of-day check (see git history) once the test is done.
-      - name: Check whether this run should send
-        id: gate
-        run: |
-          echo "Eastern time is $(TZ=America/New_York date +%H:%M) (gate open - reliability test)"
-          echo "go=true" >> $GITHUB_OUTPUT
-
-      # Cheap insurance against sending twice on the same day (e.g. a stray
-      # extra fire around a DST changeover).
-      - name: Skip if already sent in the last 20 hours
-        id: dedupe
-        if: steps.gate.outputs.go == 'true' && github.event_name == 'schedule'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          since=$(date -u -d '20 hours ago' +%Y-%m-%dT%H:%M:%SZ)
-          count=$(gh run list --workflow=daily-email.yml --json conclusion,event,createdAt \
-            -q "[.[] | select(.event==\"schedule\" and .conclusion==\"success\" and .createdAt >= \"$since\")] | length")
-          echo "Successful scheduled sends in the last 20h: $count"
-          if [[ "$count" -gt 0 ]]; then
-            echo "go=false" >> $GITHUB_OUTPUT
-          else
-            echo "go=true" >> $GITHUB_OUTPUT
-          fi
-
-      # Refresh the website with the latest news before the email. If this
-      # step fails, the email is still sent.
       - name: Refresh website
-        if: steps.gate.outputs.go == 'true' && steps.dedupe.outputs.go != 'false'
-        continue-on-error: true
         run: |
           python main.py
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -78,9 +40,7 @@ jobs:
         env:
           TZ: 'America/New_York'
 
-      # Fetches the news again at send time, so the email has the very latest.
       - name: Send email
-        if: steps.gate.outputs.go == 'true' && steps.dedupe.outputs.go != 'false'
         run: python send_email.py
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
