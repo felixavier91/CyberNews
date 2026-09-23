@@ -2,19 +2,16 @@ name: Daily Cyber Email
 
 on:
   schedule:
-    # GitHub's scheduler has been unreliable for this workflow: it didn't fire
-    # at all on 2026-09-21, and fired ~5.5 hours late on 2026-09-22. So there
-    # are two tries per season instead of one, ~15 minutes apart, and the gate
-    # below accepts a fire any time during the day, not just around 8AM. The
-    # "Skip if already sent" step guarantees only one tick actually emails.
-    #
-    # Primary: 7:55AM US/Eastern -> 11:55 UTC (EDT, summer) / 12:55 UTC (EST, winter)
-    - cron: '55 11 * * *'
-    - cron: '55 12 * * *'
-    # Backup:  8:10AM US/Eastern -> 12:10 UTC (EDT, summer) / 13:10 UTC (EST, winter)
-    - cron: '10 12 * * *'
-    - cron: '10 13 * * *'
-  workflow_dispatch:      # manual test run (sends immediately, ignores the dedupe check)
+    # Aimed at 8:30AM US/Eastern, the middle of the 8-10AM window this needs to
+    # land in. One entry per season (cron doesn't know about daylight saving),
+    # each firing once a day - same shape as update-feed.yml's single entry,
+    # which has always fired reliably on this repo. An earlier version of this
+    # file packed 4 entries into a 75-minute span as "retries"; that version
+    # fired 5.5 hours late, which points at clustering entries close together
+    # as the likely cause, not GitHub being generally unreliable.
+    - cron: '30 12 * * *'   # 8:30AM EDT (summer)
+    - cron: '30 13 * * *'   # 8:30AM EST (winter)
+  workflow_dispatch:        # manual test run (sends immediately)
 
 permissions:
   contents: write         # lets the refresh step commit the updated website page
@@ -38,26 +35,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # On 2026-09-22, GitHub fired this workflow's schedule ~5.5 hours late
-      # (~1:30PM Eastern instead of ~8AM). A tight morning-only gate here had
-      # been silently swallowing that: the run "succeeded" but never reached
-      # the Send step. So this only rules out the middle of the night, in
-      # case a schedule tick ever fires wildly early instead of late. Any
-      # daytime fire, however late, still sends - once per day, via dedupe
-      # below. Manual runs always continue regardless of the clock.
+      # Only the entry matching the current season lands in this window;
+      # the other one (wrong season) is filtered out here. Manual runs
+      # always continue regardless of the clock.
       - name: Check whether this run should send
         id: gate
         run: |
           h=$(TZ=America/New_York date +%H); m=$(TZ=America/New_York date +%M)
           mins=$((10#$h * 60 + 10#$m))
           echo "Eastern time is $h:$m"
-          if [[ "${{ github.event_name }}" != "schedule" ]] || (( mins >= 300 && mins < 1380 )); then
+          if [[ "${{ github.event_name }}" != "schedule" ]] || (( mins >= 420 && mins < 660 )); then
             echo "go=true" >> $GITHUB_OUTPUT
           else
             echo "go=false" >> $GITHUB_OUTPUT
           fi
 
-      # If the primary tick already sent today's email, the backup tick stops here.
+      # Cheap insurance against sending twice on the same day (e.g. a stray
+      # extra fire around a DST changeover).
       - name: Skip if already sent in the last 20 hours
         id: dedupe
         if: steps.gate.outputs.go == 'true' && github.event_name == 'schedule'
@@ -74,8 +68,8 @@ jobs:
             echo "go=true" >> $GITHUB_OUTPUT
           fi
 
-      # Prep 1: refresh the website with the latest news, before the email.
-      # If this step fails, the email is still sent.
+      # Refresh the website with the latest news before the email. If this
+      # step fails, the email is still sent.
       - name: Refresh website
         if: steps.gate.outputs.go == 'true' && steps.dedupe.outputs.go != 'false'
         continue-on-error: true
@@ -91,22 +85,6 @@ jobs:
           fi
         env:
           TZ: 'America/New_York'
-
-      # Prep 2: on the primary tick, wait until just before 8:00AM Eastern (5
-      # seconds early, so the feed fetch and mail hand-off land at 8:00). If
-      # it's already past that time (a late start, or this is the backup
-      # tick), this does nothing and the email goes out right away.
-      - name: Wait until 8:00AM Eastern
-        if: steps.gate.outputs.go == 'true' && steps.dedupe.outputs.go != 'false' && github.event_name == 'schedule'
-        run: |
-          target=$(( $(TZ=America/New_York date -d "08:00" +%s) - 5 ))
-          now=$(date +%s)
-          if (( now < target )); then
-            echo "Waiting $((target - now))s until 8:00AM Eastern"
-            sleep $((target - now))
-          else
-            echo "Already past 8:00AM Eastern; sending now"
-          fi
 
       # Fetches the news again at send time, so the email has the very latest.
       - name: Send email
