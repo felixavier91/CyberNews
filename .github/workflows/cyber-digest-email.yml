@@ -1,10 +1,11 @@
 name: Cyber Digest Email
 
 on:
-  # No schedule here - its own cron never fired once across every test tried
-  # (fresh workflow ID, public repo, 10/15-min intervals). The daily email now
-  # piggybacks on update-feed.yml's schedule instead, which is proven reliable.
-  # This workflow stays around as a manual on-demand sender only.
+  schedule:
+    - cron: '*/10 * * * *'   # Every 10 minutes - kept as a control group: this
+    # never fired once in prior testing, so once the external trigger is live
+    # (which shows up as workflow_dispatch, not schedule), comparing the two
+    # confirms the external trigger is what's actually working.
   workflow_dispatch:
 
 permissions:
