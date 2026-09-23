@@ -4,7 +4,7 @@ name: Update Cyber Security Feed
 # When should this process run?
 on:
   schedule:
-    - cron: '0 */6 * * *'  # This means "run every 6 hours"
+    - cron: '*/10 * * * *'  # Every 10 minutes
   workflow_dispatch:        # This lets us run it manually if needed
   push:
     branches:
@@ -66,47 +66,13 @@ jobs:
           git commit -m "Update This Week in Cyber feed - $(date +'%Y-%m-%d %H:%M:%S')"
           git push
 
-      # Step 8: This workflow's schedule is the one that's proven reliable
-      # (the separate Cyber Digest Email workflow's own schedule never fired,
-      # across many tests). So the daily email piggybacks on this run instead.
-      #
-      # This workflow's actual fire times drift around a lot (observed: 21:43,
-      # 03:30, 11:00, 10:50, 16:10 UTC - nowhere near clean 00/06/12/18), so
-      # gating on a specific clock hour silently skips real fires that land
-      # outside it (that's exactly what happened at 16:10 UTC today). Instead,
-      # this tracks how long it's been since the last successful send and
-      # requires a 9-hour gap, which - given ticks land roughly every 5-7
-      # hours - naturally settles into about 2 sends a day without needing to
-      # predict which clock hour GitHub will actually fire at.
-      - name: Check time since last email
-        id: email_gate
-        if: github.event_name == 'schedule'
-        run: |
-          marker=.github/last_email_sent.txt
-          if [[ -f "$marker" ]]; then
-            last=$(cat "$marker")
-            hours_since=$(( ($(date -u +%s) - $(date -u -d "$last" +%s)) / 3600 ))
-            echo "Last email sent $last ($hours_since hours ago)"
-          else
-            hours_since=999
-            echo "No record of a previous email"
-          fi
-          if (( hours_since >= 9 )); then
-            echo "send=true" >> $GITHUB_OUTPUT
-          else
-            echo "send=false" >> $GITHUB_OUTPUT
-          fi
-
+      # Step 8: Send the email every time this runs on its own schedule.
+      # No time-of-day check, no dedupe - the feed refreshes, the email goes
+      # out. That's it. (Still skipped for push/manual runs so pushing code
+      # doesn't also fire an email - everything else is unconditional.)
       - name: Send digest email
-        if: github.event_name == 'schedule' && steps.email_gate.outputs.send == 'true'
-        run: |
-          python send_email.py
-          mkdir -p .github
-          date -u +%Y-%m-%dT%H:%M:%SZ > .github/last_email_sent.txt
-          git add .github/last_email_sent.txt
-          git commit -m "Record last email send time - $(date -u +'%Y-%m-%d %H:%M:%S')"
-          git pull --rebase
-          git push
+        if: github.event_name == 'schedule'
+        run: python send_email.py
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
