@@ -4,64 +4,70 @@ name: Update Cyber Security Feed
 # When should this process run?
 on:
   schedule:
-    - cron: '*/10 * * * *'  # Every 10 minutes
+    - cron: '*/17 * * * *'  # Minutes 0, 17, 34, 51 of every hour
   workflow_dispatch:        # This lets us run it manually if needed
   push:
     branches:
       - main              # Also run when we push changes to main branch
 
+permissions:
+  contents: write         # lets the job commit the updated website page
+
+# Don't let two runs overlap and race each other on the push
+concurrency:
+  group: update-feed
+  cancel-in-progress: false
+
 # What tasks should be performed?
 jobs:
   update:
     runs-on: ubuntu-latest    # Use a Linux computer to run our code
-    name: Update This Week in Cyber Feed
-    
+    name: Update feed, then send email
+
     steps:
       # Step 1: Get our code
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      
+
       # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10.6'  # Using your Python version
+          python-version: '3.10.6'
           cache: 'pip'
-      
+
       # Step 3: Install our project's requirements
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      
-      # Step 4: Set up Git with a bot identity
-      - name: Configure Git
+
+      # Step 4: Regenerate the site and push it if anything changed
+      - name: Update website
         run: |
+          python main.py
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions Bot"
-      
-      # Step 5: Run our Python script
-      - name: Generate updated feed
-        run: python main.py
+          if [[ -n "$(git status --porcelain dist/)" ]]; then
+            git add dist/
+            git commit -m "Update This Week in Cyber feed - $(date +'%Y-%m-%d %H:%M:%S')"
+            git pull --rebase
+            git push
+          else
+            echo "No feed changes."
+          fi
         env:
           TZ: 'America/New_York'
-      
-      # Step 6: Check if we have any new updates
-      - name: Check for changes
-        id: check_changes
-        run: |
-          if [[ -n "$(git status --porcelain)" ]]; then
-            echo "changes=true" >> $GITHUB_OUTPUT
-          else
-            echo "changes=false" >> $GITHUB_OUTPUT
-          fi
-      
-      # Step 7: If we have updates, save them
-      - name: Commit and push if changed
-        if: steps.check_changes.outputs.changes == 'true'
-        run: |
-          git add dist/
-          git commit -m "Update This Week in Cyber feed - $(date +'%Y-%m-%d %H:%M:%S')"
-          git push
+
+      # Step 5: Always email whatever is latest, updated or not
+      - name: Send email
+        run: python send_email.py
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          SITE_URL: ${{ secrets.SITE_URL }}
