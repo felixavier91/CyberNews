@@ -3,9 +3,7 @@ name: Update Cyber Security Feed
 
 # When should this process run?
 on:
-  schedule:
-    - cron: '*/17 * * * *'  # Minutes 0, 17, 34, 51 of every hour
-  workflow_dispatch:        # This lets us run it manually if needed
+  workflow_dispatch:        # Triggered on a schedule by cron-job.org, or manually
   push:
     branches:
       - main              # Also run when we push changes to main branch
