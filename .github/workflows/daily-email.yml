@@ -2,10 +2,11 @@ name: Daily Cyber Email
 
 on:
   schedule:
-    # GitHub's scheduler occasionally drops a cron tick entirely (seen firsthand:
-    # this workflow's schedule failed to fire at all on 2026-09-21 and 2026-09-22).
-    # So there are two tries per season instead of one, ~15 minutes apart. The
-    # "Skip if already sent" step guarantees only one of them actually emails.
+    # GitHub's scheduler has been unreliable for this workflow: it didn't fire
+    # at all on 2026-09-21, and fired ~5.5 hours late on 2026-09-22. So there
+    # are two tries per season instead of one, ~15 minutes apart, and the gate
+    # below accepts a fire any time during the day, not just around 8AM. The
+    # "Skip if already sent" step guarantees only one tick actually emails.
     #
     # Primary: 7:55AM US/Eastern -> 11:55 UTC (EDT, summer) / 12:55 UTC (EST, winter)
     - cron: '55 11 * * *'
@@ -37,15 +38,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Scheduled runs: continue only if the Eastern clock reads 7:25-9:00AM
-      # (covers both ticks above, plus GitHub start delays). Manual runs always continue.
+      # On 2026-09-22, GitHub fired this workflow's schedule ~5.5 hours late
+      # (~1:30PM Eastern instead of ~8AM). A tight morning-only gate here had
+      # been silently swallowing that: the run "succeeded" but never reached
+      # the Send step. So this only rules out the middle of the night, in
+      # case a schedule tick ever fires wildly early instead of late. Any
+      # daytime fire, however late, still sends - once per day, via dedupe
+      # below. Manual runs always continue regardless of the clock.
       - name: Check whether this run should send
         id: gate
         run: |
           h=$(TZ=America/New_York date +%H); m=$(TZ=America/New_York date +%M)
           mins=$((10#$h * 60 + 10#$m))
           echo "Eastern time is $h:$m"
-          if [[ "${{ github.event_name }}" != "schedule" ]] || (( mins >= 445 && mins < 540 )); then
+          if [[ "${{ github.event_name }}" != "schedule" ]] || (( mins >= 300 && mins < 1380 )); then
             echo "go=true" >> $GITHUB_OUTPUT
           else
             echo "go=false" >> $GITHUB_OUTPUT
