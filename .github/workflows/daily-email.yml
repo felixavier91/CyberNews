@@ -2,15 +2,13 @@ name: Daily Cyber Email
 
 on:
   schedule:
-    # Aimed at 8:30AM US/Eastern, the middle of the 8-10AM window this needs to
-    # land in. One entry per season (cron doesn't know about daylight saving),
-    # each firing once a day - same shape as update-feed.yml's single entry,
-    # which has always fired reliably on this repo. An earlier version of this
-    # file packed 4 entries into a 75-minute span as "retries"; that version
-    # fired 5.5 hours late, which points at clustering entries close together
-    # as the likely cause, not GitHub being generally unreliable.
-    - cron: '30 12 * * *'   # 8:30AM EDT (summer)
-    - cron: '30 13 * * *'   # 8:30AM EST (winter)
+    # TEMPORARY RELIABILITY TEST (2026-09-23): every 10 minutes, to get many
+    # real data points on whether GitHub's own scheduler fires this workflow
+    # reliably, fast. Revert to the real schedule (see below) once confirmed.
+    - cron: '*/10 * * * *'
+    # Real schedule, restore this after the test:
+    # - cron: '30 12 * * *'   # 8:30AM EDT (summer)
+    # - cron: '30 13 * * *'   # 8:30AM EST (winter)
   workflow_dispatch:        # manual test run (sends immediately)
 
 permissions:
@@ -35,20 +33,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Only the entry matching the current season lands in this window;
-      # the other one (wrong season) is filtered out here. Manual runs
-      # always continue regardless of the clock.
+      # TEMPORARY: gate is always true during the reliability test, so every
+      # real firing is visible in the run log regardless of time of day.
+      # Restore the time-of-day check (see git history) once the test is done.
       - name: Check whether this run should send
         id: gate
         run: |
-          h=$(TZ=America/New_York date +%H); m=$(TZ=America/New_York date +%M)
-          mins=$((10#$h * 60 + 10#$m))
-          echo "Eastern time is $h:$m"
-          if [[ "${{ github.event_name }}" != "schedule" ]] || (( mins >= 420 && mins < 660 )); then
-            echo "go=true" >> $GITHUB_OUTPUT
-          else
-            echo "go=false" >> $GITHUB_OUTPUT
-          fi
+          echo "Eastern time is $(TZ=America/New_York date +%H:%M) (gate open - reliability test)"
+          echo "go=true" >> $GITHUB_OUTPUT
 
       # Cheap insurance against sending twice on the same day (e.g. a stray
       # extra fire around a DST changeover).
