@@ -65,18 +65,3 @@ jobs:
           git add dist/
           git commit -m "Update This Week in Cyber feed - $(date +'%Y-%m-%d %H:%M:%S')"
           git push
-
-      # Step 8: Send the email every time this runs on its own schedule.
-      # No time-of-day check, no dedupe - the feed refreshes, the email goes
-      # out. That's it. (Still skipped for push/manual runs so pushing code
-      # doesn't also fire an email - everything else is unconditional.)
-      - name: Send digest email
-        if: github.event_name == 'schedule'
-        run: python send_email.py
-        env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          EMAIL_TO: ${{ secrets.EMAIL_TO }}
-          SITE_URL: ${{ secrets.SITE_URL }}
