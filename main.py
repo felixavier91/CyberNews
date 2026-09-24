@@ -334,6 +334,21 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                 border: 1px solid var(--primary-yellow);
             }}
 
+            .related-link {{
+                margin: 10px 0 0;
+                font-size: 0.95em;
+            }}
+
+            .related-link a {{
+                color: var(--dark-yellow);
+                font-weight: 600;
+                text-decoration: none;
+            }}
+
+            .related-link a:hover {{
+                text-decoration: underline;
+            }}
+
             @media (max-width: 768px) {{
                 body {{
                     padding: 10px;
@@ -372,6 +387,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                     <span>This Week in <span class="accent">Cyber</span></span>
                 </h1>
                 <p class="last-updated">Last updated: {update_time}</p>
+                <p class="related-link"><a href="https://historicalcyber.netlify.app/" target="_blank">Significant Cyber Incidents, 2003-2026</a></p>
             </div>
             <ul class="event-list">
                 {events_html}
