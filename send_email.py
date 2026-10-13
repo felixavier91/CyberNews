@@ -24,7 +24,7 @@ import pytz
 from main import clean_title, convert_entry_published_gmt_to_est, get_recent_entries
 
 
-DISCLAIMER = "Prepared automatically by AI. The code is maintained by Felix Landa (Corp ERM)"
+DISCLAIMER = "Prepared automatically by AI. The code is maintained by Felix Landa (Corporate ERM)."
 
 
 def build_email(entries, site_url: str, update_time: str):

@@ -399,7 +399,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
             <ul class="event-list">
                 {events_html}
             </ul>
-            <p class="disclaimer">Prepared automatically by AI. The code is maintained by Felix Landa (Corp ERM)</p>
+            <p class="disclaimer">Prepared automatically by AI. The code is maintained by Felix Landa (Corporate ERM).</p>
         </div>
     </body>
     </html>
