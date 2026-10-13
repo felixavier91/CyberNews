@@ -4,6 +4,11 @@ name: Update Cyber Security Feed
 # When should this process run?
 on:
   workflow_dispatch:        # Triggered on a schedule by cron-job.org, or manually
+    inputs:
+      email_to:
+        description: 'Optional: send only to these addresses (comma-separated) instead of the full list'
+        required: false
+        default: ''
   push:
     branches:
       - main              # Also run when we push changes to main branch
@@ -67,5 +72,5 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_TO: ${{ inputs.email_to || secrets.EMAIL_TO }}
           SITE_URL: ${{ secrets.SITE_URL }}

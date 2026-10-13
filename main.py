@@ -349,6 +349,13 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                 text-decoration: underline;
             }}
 
+            .disclaimer {{
+                color: var(--text-light);
+                font-size: 0.85em;
+                text-align: center;
+                margin: 20px 0 0;
+            }}
+
             @media (max-width: 768px) {{
                 body {{
                     padding: 10px;
@@ -392,6 +399,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
             <ul class="event-list">
                 {events_html}
             </ul>
+            <p class="disclaimer">Prepared automatically by AI. The code is maintained by Felix Landa (Corp ERM)</p>
         </div>
     </body>
     </html>

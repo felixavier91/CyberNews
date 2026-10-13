@@ -24,7 +24,10 @@ import pytz
 from main import clean_title, convert_entry_published_gmt_to_est, get_recent_entries
 
 
-def build_email(entries, site_url: str):
+DISCLAIMER = "Prepared automatically by AI. The code is maintained by Felix Landa (Corp ERM)"
+
+
+def build_email(entries, site_url: str, update_time: str):
     rows = ""
     for entry in entries:
         title = html.escape(clean_title(entry))
@@ -43,14 +46,23 @@ def build_email(entries, site_url: str):
     html_body = f"""\
 <html><body style="font-family:Segoe UI,Arial,sans-serif;color:#2C3E50;max-width:1000px;margin:auto;">
   <h1 style="margin-bottom:4px;">This Week in <span style="color:#D68910;">Cyber</span></h1>
+  <p style="margin:6px 0 10px;">
+    <span style="display:inline-block;padding:6px 10px;border-radius:4px;font-size:13px;color:#666;
+background:#FEF9E7;border:1px solid #F5B041;">Last updated: {html.escape(update_time)}</span>
+  </p>
   <p style="margin-top:0;">
     <a href="{html.escape(site_url)}" style="color:#9C640C;">View on the website</a>
   </p>
   <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;">{rows}</table>
+  <p style="margin-top:20px;font-size:12px;color:#888;text-align:center;">{html.escape(DISCLAIMER)}</p>
 </body></html>"""
 
-    text_body = "This Week in Cyber\n" + site_url + "\n\n" + "\n\n".join(
-        f"{clean_title(e)}\n{e.link}" for e in entries
+    text_body = (
+        "This Week in Cyber\n"
+        + f"Last updated: {update_time}\n"
+        + site_url + "\n\n"
+        + "\n\n".join(f"{clean_title(e)}\n{e.link}" for e in entries)
+        + "\n\n" + DISCLAIMER
     )
     return html_body, text_body
 
@@ -69,7 +81,9 @@ def main():
         print("No entries found; not sending.")
         return
 
-    html_body, text_body = build_email(entries, site_url)
+    # Same format as the website's "Last updated" tag
+    update_time = datetime.now(pytz.timezone("US/Eastern")).strftime("%m-%d %H:%M")
+    html_body, text_body = build_email(entries, site_url, update_time)
 
     if os.environ.get("DRY_RUN"):
         with open("email_preview.html", "w", encoding="utf-8") as f:
