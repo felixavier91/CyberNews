@@ -46,10 +46,7 @@ def build_email(entries, site_url: str, update_time: str):
     html_body = f"""\
 <html><body style="font-family:Segoe UI,Arial,sans-serif;color:#2C3E50;max-width:1000px;margin:auto;">
   <h1 style="margin-bottom:4px;">This Week in <span style="color:#D68910;">Cyber</span></h1>
-  <p style="margin:6px 0 10px;">
-    <span style="display:inline-block;padding:6px 10px;border-radius:4px;font-size:13px;color:#666;
-background:#FEF9E7;border:1px solid #F5B041;">Last updated: {html.escape(update_time)}</span>
-  </p>
+  <p style="margin:4px 0 8px;font-size:13px;color:#888;">Last updated: {html.escape(update_time)}</p>
   <p style="margin-top:0;">
     <a href="{html.escape(site_url)}" style="color:#9C640C;">View on the website</a>
   </p>
