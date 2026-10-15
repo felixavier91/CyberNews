@@ -75,8 +75,8 @@ def main():
     site_url = os.environ.get("SITE_URL", "")
     entries = get_recent_entries()
     if not entries:
-        print("No entries found; not sending.")
-        return
+        # Fail the run so the missed email shows up in GitHub (and its failure notice)
+        sys.exit("No entries found; not sending.")
 
     # Same format as the website's "Last updated" tag
     update_time = datetime.now(pytz.timezone("US/Eastern")).strftime("%m-%d %H:%M")

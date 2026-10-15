@@ -5,6 +5,7 @@ from difflib import SequenceMatcher
 from typing import List, Dict
 import html
 import os
+import time
 
 class NewsFilter:
     def __init__(self):
@@ -432,10 +433,19 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
 def get_recent_entries() -> List[Dict]:
     """Fetch, filter and sort the past week's cyber headlines (newest first)."""
     search = "Cyber"
-    rss_url = f"https://news.google.com/news/feeds?q={search}&output=rss"
+    rss_url = f"https://news.google.com/rss/search?q={search}&hl=en-US&gl=US&ceid=US:en"
 
     now = datetime.now()
-    feed = feedparser.parse(rss_url)
+    # Google News sometimes hands GitHub's servers an empty or blocked
+    # response, so retry a few times before giving up.
+    for attempt in range(1, 6):
+        feed = feedparser.parse(rss_url, agent="Mozilla/5.0 (compatible; ThisWeekInCyber/1.0)")
+        if feed.entries:
+            break
+        print(f"Feed attempt {attempt}: no entries (HTTP {feed.get('status')}, "
+              f"error: {feed.get('bozo_exception')})")
+        if attempt < 5:
+            time.sleep(attempt * 15)
 
     recent_entries = []
     number_of_days = 7
@@ -456,7 +466,12 @@ def get_recent_entries() -> List[Dict]:
 
 
 def main():
-    generate_html_page(get_recent_entries())
+    entries = get_recent_entries()
+    if not entries:
+        # Keep the last good page rather than publishing an empty one
+        print("No entries found; leaving the existing page unchanged.")
+        return
+    generate_html_page(entries)
 
 
 if __name__ == "__main__":
