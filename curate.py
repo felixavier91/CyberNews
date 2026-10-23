@@ -10,7 +10,48 @@ import anthropic
 
 from main import clean_title
 
-MODEL = "claude-opus-5-5"
+MODEL = "claude-opus-5-5"            # filtering: judgment calls on the whole list
+SUMMARY_MODEL = "claude-haiku-5-5"   # summaries: simple per-article job, much cheaper
+
+# List prices in $ per million tokens (Haiku 5.5's rate applies to prompts up to 100K)
+PRICES = {
+    "claude-opus-5-5": {"input": 4.00, "output": 20.00, "cache_read": 0.20, "cache_write": 5.00},
+    "claude-haiku-5-5": {"input": 0.10, "output": 0.50, "cache_read": 0.01, "cache_write": 0.125},
+}
+WEB_SEARCH_PRICE = 0.01  # $10 per 1,000 searches
+
+
+class CostTracker:
+    """Adds up token use and estimated $ cost of the API calls in this run."""
+
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.dollars = 0.0
+        self.calls = self.input = self.output = self.searches = 0
+
+    def add(self, model, usage):
+        p = PRICES[model]
+        cache_read = getattr(usage, "cache_read_input_tokens", 0) or 0
+        cache_write = getattr(usage, "cache_creation_input_tokens", 0) or 0
+        server = getattr(usage, "server_tool_use", None)
+        searches = (getattr(server, "web_search_requests", 0) or 0) if server else 0
+        self.calls += 1
+        self.input += usage.input_tokens + cache_read + cache_write
+        self.output += usage.output_tokens
+        self.searches += searches
+        self.dollars += (usage.input_tokens * p["input"] + usage.output_tokens * p["output"]
+                         + cache_read * p["cache_read"] + cache_write * p["cache_write"]) / 1e6
+        self.dollars += searches * WEB_SEARCH_PRICE
+
+    def report(self, label):
+        print(f"COST {label}: ${self.dollars:.3f} ({self.calls} calls, {self.input} in / "
+              f"{self.output} out tokens, {self.searches} web searches)")
+        self.reset()
+
+
+COSTS = CostTracker()
 
 INSTRUCTIONS = """\
 You are curating a daily cybersecurity news digest read by a corporate \
@@ -96,21 +137,21 @@ def _summarize_one(client, entry) -> str:
         published=entry.get("published", ""), link=entry.get("link", ""),
     )
     messages = [{"role": "user", "content": prompt}]
+    # One search and one capped fetch per article keeps each summary to a few cents
     tools = [
-        {"type": "web_search_20260209", "name": "web_search", "max_uses": 3},
-        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": 3,
-         "max_content_tokens": 8000},
+        {"type": "web_search_20250305", "name": "web_search", "max_uses": 1},
+        {"type": "web_fetch_20250910", "name": "web_fetch", "max_uses": 1,
+         "max_content_tokens": 3000},
     ]
-    for _ in range(4):  # resume a few times if the server-side tool loop pauses
-        response = client.beta.messages.create(
-            model=MODEL,
-            max_tokens=16000,
-            betas=["server-side-fallback-2026-07-01"],
-            fallbacks="default",
+    for _ in range(3):  # resume if the server-side tool loop pauses
+        response = client.messages.create(
+            model=SUMMARY_MODEL,
+            max_tokens=4000,
             output_config={"effort": "low"},
             tools=tools,
             messages=messages,
         )
+        COSTS.add(SUMMARY_MODEL, response.usage)
         if response.stop_reason != "pause_turn":
             break
         messages = [messages[0], {"role": "assistant", "content": response.content}]
@@ -143,6 +184,7 @@ def summarize(entries):
         except Exception as e:  # a failed summary never blocks the site or email
             print(f"  NO SUMMARY [{_source(entry)}] {clean_title(entry)[:60]} "
                   f"({type(e).__name__}: {e})")
+    COSTS.report("Summaries")
     return entries
 
 
@@ -187,6 +229,8 @@ def curate(entries):
             },
             messages=[{"role": "user", "content": f"{INSTRUCTIONS}\n\n<headlines>\n{listing}\n</headlines>"}],
         )
+        COSTS.add(MODEL, response.usage)
+        COSTS.report("Filtering")
         if response.stop_reason != "end_turn":
             print(f"Curation stopped early ({response.stop_reason}); sending unfiltered.")
             return entries, []
