@@ -21,7 +21,7 @@ from email.message import EmailMessage
 
 import pytz
 
-from curate import curate
+from curate import curate, summarize, summary_parts
 from main import (CURATED_FILE, clean_title, convert_entry_published_gmt_to_est,
                   get_recent_entries, load_entries)
 
@@ -33,17 +33,27 @@ def build_email(entries, site_url: str, update_time: str):
     rows = ""
     for entry in entries:
         title = html.escape(clean_title(entry))
+        link = html.escape(entry.link)
+        summary, headline_only = summary_parts(entry)
+        border = "" if summary else "border-bottom:1px solid #eee;"
         rows += (
             "<tr>"
-            '<td style="padding:7px 12px 7px 0;border-bottom:1px solid #eee;'
-            'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'
-            f'<a href="{html.escape(entry.link)}" '
-            f'style="color:#2C3E50;text-decoration:none;">{title}</a></td>'
-            '<td style="width:135px;padding:7px 0;border-bottom:1px solid #eee;'
-            'white-space:nowrap;text-align:right;font-size:12px;color:#888;">'
+            f'<td style="padding:9px 12px 3px 0;{border}">'
+            f'<a href="{link}" style="color:#2C3E50;text-decoration:none;font-weight:600;">{title}</a></td>'
+            f'<td style="width:135px;padding:9px 0 3px;{border}'
+            'white-space:nowrap;text-align:right;vertical-align:top;font-size:12px;color:#888;">'
             f"{convert_entry_published_gmt_to_est(entry.published)}</td>"
             "</tr>"
         )
+        if summary:
+            note = ' <i>(summary from headline only)</i>' if headline_only else ""
+            rows += (
+                '<tr><td colspan="2" style="padding:0 0 9px;border-bottom:1px solid #eee;'
+                'font-size:14px;line-height:1.5;color:#555;">'
+                f'{html.escape(summary)}{note} '
+                f'<a href="{link}" style="color:#9C640C;white-space:nowrap;">Read at source</a>'
+                "</td></tr>"
+            )
 
     html_body = f"""\
 <html><body style="font-family:Segoe UI,Arial,sans-serif;color:#2C3E50;max-width:1000px;margin:auto;">
@@ -60,7 +70,10 @@ def build_email(entries, site_url: str, update_time: str):
         "This Week in Cyber\n"
         + f"Last updated: {update_time}\n"
         + site_url + "\n\n"
-        + "\n\n".join(f"{clean_title(e)}\n{e.link}" for e in entries)
+        + "\n\n".join(
+            f"{clean_title(e)}\n" + (f"{summary_parts(e)[0]}\n" if summary_parts(e)[0] else "") + e.link
+            for e in entries
+        )
         + "\n\n" + DISCLAIMER
     )
     return html_body, text_body
@@ -82,6 +95,7 @@ def main():
         entries = get_recent_entries()
         if entries:
             entries, _ = curate(entries)
+            entries = summarize(entries)
     if not entries:
         # Fail the run so the missed email shows up in GitHub (and its failure notice)
         sys.exit("No entries found; not sending.")

@@ -189,6 +189,17 @@ def clean_title(entry) -> str:
     return title.strip()
 
 
+def summary_html(entry) -> str:
+    """The AI summary paragraph under a headline, or nothing if there isn't one."""
+    from curate import summary_parts
+    summary, headline_only = summary_parts(entry)
+    if not summary:
+        return ""
+    note = ' <span class="summary-note">(summary from headline only)</span>' if headline_only else ""
+    return (f'<p class="event-summary">{html.escape(summary)}{note} '
+            f'<a href="{entry.link}" target="_blank">Read at source</a></p>')
+
+
 def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
     """
     Generate a complete HTML page with the cyber events list.
@@ -325,6 +336,32 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                 white-space: nowrap;
             }}
 
+            .event-item {{
+                flex-wrap: wrap;
+                row-gap: 4px;
+            }}
+
+            .event-title {{
+                white-space: normal;
+            }}
+
+            .event-summary {{
+                flex: 1 1 100%;
+                margin: 0 0 6px;
+                font-size: 0.95em;
+                line-height: 1.5;
+                color: var(--text-light);
+            }}
+
+            .event-summary a {{
+                color: var(--dark-yellow);
+                white-space: nowrap;
+            }}
+
+            .summary-note {{
+                font-style: italic;
+            }}
+
             .last-updated {{
                 color: var(--text-light);
                 font-size: 0.9em;
@@ -418,6 +455,7 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                 <div class="event-meta">
                     {published_time}
                 </div>
+                {summary_html(entry)}
             </li>
         """
 
@@ -473,8 +511,9 @@ def main():
         print("No entries found; leaving the existing page unchanged.")
         return
 
-    from curate import curate  # imported here: curate.py imports from this module
+    from curate import curate, summarize  # imported here: curate.py imports from this module
     entries, _ = curate(entries)
+    entries = summarize(entries)
     generate_html_page(entries)
     save_entries(entries)
 
@@ -484,7 +523,7 @@ CURATED_FILE = "curated_entries.json"
 
 def save_entries(entries: List[Dict], path: str = CURATED_FILE):
     """Save the curated list so send_email.py emails exactly what the site shows."""
-    fields = ("title", "link", "published", "published_parsed", "source")
+    fields = ("title", "link", "published", "published_parsed", "source", "ai_summary")
     with open(path, "w", encoding="utf-8") as f:
         json.dump([{k: entry.get(k) for k in fields} for entry in entries], f)
 

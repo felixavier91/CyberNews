@@ -67,6 +67,95 @@ SCHEMA = {
 }
 
 
+SUMMARY_INSTRUCTIONS = """\
+Write a short summary of one news article for a corporate enterprise risk \
+management team's daily cyber incident digest.
+
+Headline: {headline}
+Source: {source}
+Published: {published}
+Google News link: {link}
+
+Find and read this article: search for the headline and source, and fetch the \
+article from the publisher's site. Then write 2-3 plain sentences covering what \
+happened, who was affected, and the impact or current status. Use only facts \
+stated in the article. Don't speculate, editorialize or add advice.
+
+If you can't read the article (paywall, blocked, not found), write one \
+sentence based only on the headline and start your reply with the exact text \
+"[headline only] ".
+
+Reply with the summary only: no title, links, citations, bullet points or preamble."""
+
+HEADLINE_ONLY = "[headline only] "
+
+
+def _summarize_one(client, entry) -> str:
+    prompt = SUMMARY_INSTRUCTIONS.format(
+        headline=clean_title(entry), source=_source(entry),
+        published=entry.get("published", ""), link=entry.get("link", ""),
+    )
+    messages = [{"role": "user", "content": prompt}]
+    tools = [
+        {"type": "web_search_20260209", "name": "web_search", "max_uses": 3},
+        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": 3,
+         "max_content_tokens": 8000},
+    ]
+    for _ in range(4):  # resume a few times if the server-side tool loop pauses
+        response = client.beta.messages.create(
+            model=MODEL,
+            max_tokens=16000,
+            betas=["server-side-fallback-2026-07-01"],
+            fallbacks="default",
+            output_config={"effort": "low"},
+            tools=tools,
+            messages=messages,
+        )
+        if response.stop_reason != "pause_turn":
+            break
+        messages = [messages[0], {"role": "assistant", "content": response.content}]
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"stopped with {response.stop_reason}")
+
+    # The summary is the text written after the last tool result
+    text = []
+    for block in response.content:
+        if block.type == "text":
+            text.append(block.text)
+        elif block.type.endswith("tool_result"):
+            text = []
+    summary = " ".join("".join(text).split())
+    if not summary:
+        raise RuntimeError("empty summary")
+    return summary
+
+
+def summarize(entries):
+    """Add an 'ai_summary' to each entry; entries that fail just go without one."""
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        print("ANTHROPIC_API_KEY not set; skipping summaries.")
+        return entries
+    client = anthropic.Anthropic()
+    for entry in entries:
+        try:
+            entry["ai_summary"] = _summarize_one(client, entry)
+            print(f"  SUMMARY [{_source(entry)}] {clean_title(entry)[:60]}: {entry['ai_summary']}")
+        except Exception as e:  # a failed summary never blocks the site or email
+            print(f"  NO SUMMARY [{_source(entry)}] {clean_title(entry)[:60]} "
+                  f"({type(e).__name__}: {e})")
+    return entries
+
+
+def summary_parts(entry):
+    """(summary text, from_headline_only) for display, or (None, False)."""
+    summary = entry.get("ai_summary")
+    if not summary:
+        return None, False
+    if summary.startswith(HEADLINE_ONLY.strip()):
+        return summary[len(HEADLINE_ONLY.strip()):].strip(), True
+    return summary, False
+
+
 def _source(entry) -> str:
     if isinstance(entry.get("source"), dict):
         return entry["source"].get("title", "")
