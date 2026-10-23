@@ -50,8 +50,7 @@ def build_email(entries, site_url: str, update_time: str):
             rows += (
                 '<tr><td colspan="2" style="padding:0 0 9px;border-bottom:1px solid #eee;'
                 'font-size:14px;line-height:1.5;color:#555;">'
-                f'{html.escape(summary)}{note} '
-                f'<a href="{link}" style="color:#9C640C;white-space:nowrap;">Read at source</a>'
+                f'{html.escape(summary)}{note}'
                 "</td></tr>"
             )
 

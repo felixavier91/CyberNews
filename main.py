@@ -196,8 +196,7 @@ def summary_html(entry) -> str:
     if not summary:
         return ""
     note = ' <span class="summary-note">(summary from headline only)</span>' if headline_only else ""
-    return (f'<p class="event-summary">{html.escape(summary)}{note} '
-            f'<a href="{entry.link}" target="_blank">Read at source</a></p>')
+    return f'<p class="event-summary">{html.escape(summary)}{note}</p>'
 
 
 def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
@@ -351,11 +350,6 @@ def generate_html_page(entries: List[Dict], output_dir: str = 'dist'):
                 font-size: 0.95em;
                 line-height: 1.5;
                 color: var(--text-light);
-            }}
-
-            .event-summary a {{
-                color: var(--dark-yellow);
-                white-space: nowrap;
             }}
 
             .summary-note {{
