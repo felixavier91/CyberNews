@@ -58,22 +58,20 @@ def build_email(entries, site_url: str, update_time: str):
 <html><body style="font-family:Segoe UI,Arial,sans-serif;color:#2C3E50;max-width:1000px;margin:auto;">
   <h1 style="margin-bottom:4px;">This Week in <span style="color:#D68910;">Cyber</span></h1>
   <p style="margin:4px 0 8px;font-size:13px;color:#888;">Last updated: {html.escape(update_time)}</p>
-  <p style="margin-top:0;">
-    <a href="{html.escape(site_url)}" style="color:#9C640C;">View on the website</a>
-  </p>
   <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;">{rows}</table>
-  <p style="margin-top:20px;font-size:12px;color:#888;text-align:center;">{html.escape(DISCLAIMER)}</p>
+  <p style="margin-top:20px;font-size:12px;color:#888;text-align:center;">{html.escape(DISCLAIMER)}
+    <a href="{html.escape(site_url)}" style="color:#aaa;text-decoration:none;">Web version</a></p>
 </body></html>"""
 
     text_body = (
         "This Week in Cyber\n"
-        + f"Last updated: {update_time}\n"
-        + site_url + "\n\n"
+        + f"Last updated: {update_time}\n\n"
         + "\n\n".join(
             f"{clean_title(e)}\n" + (f"{summary_parts(e)[0]}\n" if summary_parts(e)[0] else "") + e.link
             for e in entries
         )
         + "\n\n" + DISCLAIMER
+        + f"\nWeb version: {site_url}"
     )
     return html_body, text_body
 
