@@ -17,21 +17,34 @@ You are curating a daily cybersecurity news digest read by a corporate \
 enterprise risk management (ERM) team at an insurance company. Below are this \
 week's headlines from Google News, each with an id, source and publish time.
 
-Keep headlines that report real, substantive cybersecurity news: breaches, \
-attacks, ransomware, vulnerabilities, threat actors, regulation and policy, \
-enforcement, major industry developments, and analysis from credible outlets.
+The readers only want tangible incidents: something specific that actually \
+happened to a named organization, sector, system or group of people. Keep a \
+headline only if it reports one of these:
+- A specific cyber attack, breach, data leak, ransomware or extortion incident, \
+or outage caused by an attack.
+- A specific named vulnerability that is being exploited or that puts named \
+products or organizations at concrete risk.
+- A concrete action taken over an attack or attackers: arrests, indictments, \
+sanctions, takedowns, fines or lawsuits.
+- A specific attributed campaign by a named threat actor or nation state.
 
-Remove:
-- Clickbait and vague teasers ("You won't believe...", "This one trick...", listicles).
-- Duplicates: when several headlines cover the same story, keep only the one \
-from the most credible or most informative source.
-- Low-quality, SEO-spam or content-farm sources, press-release mills, and \
-sponsored or promotional pieces (product launches, webinars, awards, "top 10 tools").
-- Items that aren't really cybersecurity news (stock picks, "cyber" used for \
-something unrelated, such as Cyber Monday or Cybertruck).
+Remove everything else, including:
+- Predictions, trends, forecasts and "the future of cyber" pieces.
+- Opinion, commentary, interviews, think pieces and talking points about the \
+cyber ecosystem, AI and security, the skills gap, budgets, and the like.
+- Listicles, tips and how-to guides ("5 things to watch", "how to protect yourself").
+- Surveys, reports and statistics about the threat landscape in general.
+- General policy or regulation talk that isn't tied to a specific incident.
+- Product launches, funding rounds, acquisitions, awards, webinars, events and \
+other promotional pieces.
+- Stock or market commentary, and items where "cyber" means something else \
+(Cyber Monday, Cybertruck).
+- Clickbait and vague teasers that don't say what actually happened.
+- Duplicates: when several headlines cover the same incident, keep only the \
+one from the most credible or most informative source.
 
-Judge from the headline and source only. When unsure, keep the item. Give a \
-short reason for every removal."""
+Judge from the headline and source only. If a headline doesn't make clear that \
+a specific incident happened, remove it. Give a short reason for every removal."""
 
 SCHEMA = {
     "type": "object",
