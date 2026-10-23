@@ -74,3 +74,4 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           EMAIL_TO: ${{ inputs.email_to || secrets.EMAIL_TO }}
           SITE_URL: ${{ secrets.SITE_URL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

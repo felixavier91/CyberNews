@@ -21,6 +21,7 @@ from email.message import EmailMessage
 
 import pytz
 
+from curate import curate
 from main import clean_title, convert_entry_published_gmt_to_est, get_recent_entries
 
 
@@ -77,6 +78,8 @@ def main():
     if not entries:
         # Fail the run so the missed email shows up in GitHub (and its failure notice)
         sys.exit("No entries found; not sending.")
+
+    entries, _ = curate(entries)
 
     # Same format as the website's "Last updated" tag
     update_time = datetime.now(pytz.timezone("US/Eastern")).strftime("%m-%d %H:%M")
