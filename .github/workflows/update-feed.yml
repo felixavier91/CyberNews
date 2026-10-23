@@ -23,7 +23,26 @@ concurrency:
 
 # What tasks should be performed?
 jobs:
+  # No digest on Saturday or Sunday (US Eastern): no Claude calls, no site
+  # update, no email. A manual test with email_to set still runs.
+  check-day:
+    runs-on: ubuntu-latest
+    outputs:
+      weekday: ${{ steps.day.outputs.weekday }}
+    steps:
+      - id: day
+        run: |
+          day=$(TZ=America/New_York date +%u)   # 1=Mon ... 6=Sat, 7=Sun
+          if [[ "$day" -ge 6 ]]; then
+            echo "Weekend in US Eastern; skipping."
+            echo "weekday=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "weekday=true" >> "$GITHUB_OUTPUT"
+          fi
+
   update:
+    needs: check-day
+    if: needs.check-day.outputs.weekday == 'true' || inputs.email_to != ''
     runs-on: ubuntu-latest    # Use a Linux computer to run our code
     name: Update feed, then send email
 
