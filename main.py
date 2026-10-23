@@ -4,6 +4,7 @@ import pytz
 from difflib import SequenceMatcher
 from typing import List, Dict
 import html
+import json
 import os
 import time
 
@@ -471,7 +472,26 @@ def main():
         # Keep the last good page rather than publishing an empty one
         print("No entries found; leaving the existing page unchanged.")
         return
+
+    from curate import curate  # imported here: curate.py imports from this module
+    entries, _ = curate(entries)
     generate_html_page(entries)
+    save_entries(entries)
+
+
+CURATED_FILE = "curated_entries.json"
+
+
+def save_entries(entries: List[Dict], path: str = CURATED_FILE):
+    """Save the curated list so send_email.py emails exactly what the site shows."""
+    fields = ("title", "link", "published", "published_parsed", "source")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump([{k: entry.get(k) for k in fields} for entry in entries], f)
+
+
+def load_entries(path: str = CURATED_FILE) -> List[Dict]:
+    with open(path, encoding="utf-8") as f:
+        return [feedparser.FeedParserDict(e) for e in json.load(f)]
 
 
 if __name__ == "__main__":

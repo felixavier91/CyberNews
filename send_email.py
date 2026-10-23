@@ -22,7 +22,8 @@ from email.message import EmailMessage
 import pytz
 
 from curate import curate
-from main import clean_title, convert_entry_published_gmt_to_est, get_recent_entries
+from main import (CURATED_FILE, clean_title, convert_entry_published_gmt_to_est,
+                  get_recent_entries, load_entries)
 
 
 DISCLAIMER = "Prepared automatically by AI. The code is maintained by Felix Landa (Corporate ERM)."
@@ -74,12 +75,16 @@ def main():
             return
 
     site_url = os.environ.get("SITE_URL", "")
-    entries = get_recent_entries()
+    if os.path.exists(CURATED_FILE):
+        # main.py already fetched and curated this run's list for the website
+        entries = load_entries()
+    else:
+        entries = get_recent_entries()
+        if entries:
+            entries, _ = curate(entries)
     if not entries:
         # Fail the run so the missed email shows up in GitHub (and its failure notice)
         sys.exit("No entries found; not sending.")
-
-    entries, _ = curate(entries)
 
     # Same format as the website's "Last updated" tag
     update_time = datetime.now(pytz.timezone("US/Eastern")).strftime("%m-%d %H:%M")

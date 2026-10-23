@@ -1,6 +1,6 @@
 # Main build settings
 [build]
-  command = "python main.py"
+  command = "echo Publishing the dist/ page committed by the GitHub workflow"  # no rebuild here: the workflow builds the curated page
   publish = "dist"
   functions = "netlify/functions"
 

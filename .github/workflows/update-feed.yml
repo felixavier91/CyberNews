@@ -63,6 +63,7 @@ jobs:
           fi
         env:
           TZ: 'America/New_York'
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       # Step 5: Always email whatever is latest, updated or not
       - name: Send email
