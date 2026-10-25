@@ -505,9 +505,9 @@ def main():
         print("No entries found; leaving the existing page unchanged.")
         return
 
-    from curate import curate, summarize  # imported here: curate.py imports from this module
+    from curate import check_articles, curate  # imported here: curate.py imports from this module
     entries, _ = curate(entries)
-    entries = summarize(entries)
+    entries = check_articles(entries)
     generate_html_page(entries)
     save_entries(entries)
 

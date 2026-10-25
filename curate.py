@@ -5,13 +5,16 @@ reason, the original list is returned unchanged so the email still goes out.
 """
 import json
 import os
+import re
+import urllib.parse
+import urllib.request
 
 import anthropic
 
 from main import clean_title
 
-MODEL = "claude-opus-5-5"            # filtering: judgment calls on the whole list
-SUMMARY_MODEL = "claude-haiku-5-5"   # summaries: simple per-article job, much cheaper
+MODEL = "claude-haiku-5-5"           # filtering: one call over the whole list
+SUMMARY_MODEL = "claude-haiku-5-5"   # article checks: simple per-article job
 
 # List prices in $ per million tokens (Haiku 5.5's rate applies to prompts up to 100K)
 PRICES = {
@@ -108,45 +111,72 @@ SCHEMA = {
 }
 
 
-SUMMARY_INSTRUCTIONS = """\
-Write a short summary of one news article for a corporate enterprise risk \
-management team's daily cyber incident digest.
+CHECK_INSTRUCTIONS = """\
+You are checking one article for a corporate enterprise risk management \
+team's daily cyber incident digest. Its headline already passed a filter.
 
 Headline: {headline}
 Source: {source}
-Published: {published}
-Google News link: {link}
 
-Find and read this article: search for the headline and source, and fetch the \
-article from the publisher's site. Then write 2-3 plain sentences covering what \
-happened, who was affected, and the impact or current status. Use only facts \
-stated in the article. Don't speculate, editorialize or add advice.
+Fetch and read the article at this URL: {url}
 
-If you can't read the article (paywall, blocked, not found), write one \
-sentence based only on the headline and start your reply with the exact text \
-"[headline only] ".
+Decide whether the article itself reports a tangible incident: a specific \
+cyber attack, breach, data leak, ransomware or extortion incident, outage \
+caused by an attack, actively exploited vulnerability, arrest, sanction, fine, \
+lawsuit or attributed campaign that happened to a named organization, sector, \
+system or group of people.
 
-Reply with the summary only: no title, links, citations, bullet points or preamble."""
+Drop it if the body turns out to be clickbait or filler: a listicle, tips or \
+how-to, opinion, trend or prediction piece, survey, promotion, or a vague \
+teaser that never says what actually happened.
+
+Reply with exactly KEEP or DROP, then a dash and a short reason. If you can't \
+read the article (paywall, blocked, not found, video only), reply \
+"UNREAD - " and the reason."""
 
 HEADLINE_ONLY = "[headline only] "
 
+UA = {"User-Agent": "Mozilla/5.0 (compatible; ThisWeekInCyber/1.0)"}
 
-def _summarize_one(client, entry) -> str:
-    prompt = SUMMARY_INSTRUCTIONS.format(
-        headline=clean_title(entry), source=_source(entry),
-        published=entry.get("published", ""), link=entry.get("link", ""),
-    )
+
+def _http(url, data=None, headers=None) -> str:
+    req = urllib.request.Request(url, data=data, headers={**UA, **(headers or {})})
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        return resp.read().decode()
+
+
+def publisher_url(link):
+    """The publisher's URL behind a Google News link, or None if it can't be decoded.
+
+    Google News links redirect with JavaScript, so ask Google's own decoder endpoint.
+    """
+    try:
+        article_id = urllib.parse.urlparse(link).path.split("/")[-1]
+        page = _http(f"https://news.google.com/rss/articles/{article_id}")
+        sig = re.search(r'data-n-a-sg="([^"]+)"', page).group(1)
+        ts = re.search(r'data-n-a-ts="([^"]+)"', page).group(1)
+        req = ('["garturlreq",[["X","X",["X","X"],null,null,1,1,"US:en",null,1,null,null,null,null,null,0,1],'
+               f'"X","X",1,[1,1,1],1,1,null,0,0,null,0],"{article_id}",{ts},"{sig}"]')
+        body = urllib.parse.urlencode({"f.req": json.dumps([[["Fbv4je", req, None, "generic"]]])}).encode()
+        resp = _http("https://news.google.com/_/DotsSplashUi/data/batchexecute", body,
+                     {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"})
+        url = json.loads(json.loads(resp.split("\n\n")[1])[0][2])[1]
+        return url if url.startswith("http") else None
+    except Exception:
+        return None
+
+
+def _check_one(client, entry, url) -> str:
+    """Claude's verdict on one article: 'KEEP - ...', 'DROP - ...' or 'UNREAD - ...'."""
+    prompt = CHECK_INSTRUCTIONS.format(headline=clean_title(entry), source=_source(entry), url=url)
     messages = [{"role": "user", "content": prompt}]
-    # One search and one capped fetch per article keeps each summary to a few cents
-    tools = [
-        {"type": "web_search_20250305", "name": "web_search", "max_uses": 1},
-        {"type": "web_fetch_20250910", "name": "web_fetch", "max_uses": 1,
-         "max_content_tokens": 3000},
-    ]
+    # One capped fetch and no web search keeps each check to a fraction of a cent
+    tools = [{"type": "web_fetch_20250910", "name": "web_fetch", "max_uses": 1,
+              "max_content_tokens": 3000}]
     for _ in range(3):  # resume if the server-side tool loop pauses
         response = client.messages.create(
             model=SUMMARY_MODEL,
-            max_tokens=4000,
+            max_tokens=2000,
             output_config={"effort": "low"},
             tools=tools,
             messages=messages,
@@ -158,34 +188,37 @@ def _summarize_one(client, entry) -> str:
     if response.stop_reason != "end_turn":
         raise RuntimeError(f"stopped with {response.stop_reason}")
 
-    # The summary is the text written after the last tool result
+    # The verdict is the text written after the last tool result
     text = []
     for block in response.content:
         if block.type == "text":
             text.append(block.text)
         elif block.type.endswith("tool_result"):
             text = []
-    summary = " ".join("".join(text).split())
-    if not summary:
-        raise RuntimeError("empty summary")
-    return summary
+    return " ".join("".join(text).split())
 
 
-def summarize(entries):
-    """Add an 'ai_summary' to each entry; entries that fail just go without one."""
+def check_articles(entries):
+    """Read each article and drop the ones whose body turns out to be clickbait.
+
+    Articles Claude can't read stay in on the strength of their headline.
+    """
     if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("ANTHROPIC_API_KEY not set; skipping summaries.")
+        print("ANTHROPIC_API_KEY not set; skipping article checks.")
         return entries
     client = anthropic.Anthropic()
+    kept = []
     for entry in entries:
         try:
-            entry["ai_summary"] = _summarize_one(client, entry)
-            print(f"  SUMMARY [{_source(entry)}] {clean_title(entry)[:60]}: {entry['ai_summary']}")
-        except Exception as e:  # a failed summary never blocks the site or email
-            print(f"  NO SUMMARY [{_source(entry)}] {clean_title(entry)[:60]} "
-                  f"({type(e).__name__}: {e})")
-    COSTS.report("Summaries")
-    return entries
+            url = publisher_url(entry.get("link", ""))
+            verdict = _check_one(client, entry, url) if url else "UNREAD - link not decoded"
+        except Exception as e:  # a failed check never blocks the site or email
+            verdict = f"UNREAD - {type(e).__name__}: {e}"
+        print(f"  {verdict[:200]} [{_source(entry)}] {clean_title(entry)[:60]}")
+        if not verdict.startswith("DROP"):
+            kept.append(entry)
+    COSTS.report("Article checks")
+    return kept or entries
 
 
 def summary_parts(entry):

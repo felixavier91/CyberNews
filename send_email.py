@@ -21,7 +21,7 @@ from email.message import EmailMessage
 
 import pytz
 
-from curate import curate, summarize, summary_parts
+from curate import check_articles, curate, summary_parts
 from main import (CURATED_FILE, clean_title, convert_entry_published_gmt_to_est,
                   get_recent_entries, load_entries)
 
@@ -92,7 +92,7 @@ def main():
         entries = get_recent_entries()
         if entries:
             entries, _ = curate(entries)
-            entries = summarize(entries)
+            entries = check_articles(entries)
     if not entries:
         # Fail the run so the missed email shows up in GitHub (and its failure notice)
         sys.exit("No entries found; not sending.")
