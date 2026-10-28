@@ -39,7 +39,7 @@ def build_email(entries, site_url: str, update_time: str):
         rows += (
             "<tr>"
             f'<td style="padding:9px 12px 3px 0;{border}">'
-            f'<a href="{link}" style="color:#2C3E50;text-decoration:none;font-weight:600;">{title}</a></td>'
+            f'<a href="{link}" style="color:#2C3E50;text-decoration:none;font-weight:normal;">{title}</a></td>'
             f'<td style="width:135px;padding:9px 0 3px;{border}'
             'white-space:nowrap;text-align:right;vertical-align:top;font-size:12px;color:#888;">'
             f"{convert_entry_published_gmt_to_est(entry.published)}</td>"
